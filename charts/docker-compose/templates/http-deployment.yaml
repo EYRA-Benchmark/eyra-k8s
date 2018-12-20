@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -c -f docker-compose.yml
+    kompose.version: 1.17.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: http
+  name: http
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: http
+    spec:
+      containers:
+      - image: nginx:stable-alpine
+        name: http
+        resources: {}
+        volumeMounts:
+        - mountPath: /etc/nginx/nginx.conf
+          name: http-claim0
+        - mountPath: /srv/public/static/
+          name: static
+      restartPolicy: Always
+      volumes:
+      - name: http-claim0
+        persistentVolumeClaim:
+          claimName: http-claim0
+      - name: static
+        persistentVolumeClaim:
+          claimName: static
+status: {}
