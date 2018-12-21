@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: eyra-frontend-staging-ingress
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
+    kubernetes.io/tls-acme: "true"
+    certmanager.k8s.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - staging.eyrabenchmark.net
+    secretName: eyra-frontend-staging-letsencrypt
+  rules:
+  - host: staging.eyrabenchmark.net
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: eyra-frontend-service
+          servicePort: 80
