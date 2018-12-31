@@ -1,0 +1,139 @@
+version: '3'
+
+services:
+
+  postgres:
+    image: postgres:10.4
+    environment:
+      <<: &postgresenv
+        POSTGRES_PASSWORD: comic_db_user_password
+        POSTGRES_USER: comic_db_user
+        POSTGRES_DB: comic_db_name
+      PGDATA: /var/lib/postgresql/data/pgdata
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "comic_db_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - /srv/postgres:/var/lib/postgresql/data/pgdata
+    restart: always
+
+  web:
+    image: grandchallenge/web:2064
+    environment: &djangoenv
+      <<: *postgresenv
+      DEBUG: '{{ django_debug }}'
+      SECRET_KEY: '{{ django_secret_key }}'
+      EMAIL_HOST: '{{ django_smtp_host }}'
+      EMAIL_HOST_USER: '{{ smtp_user }}'
+      EMAIL_HOST_PASSWORD: '{{ smtp_password }}'
+      EMAIL_PORT: '{{ smtp_port }}'
+      EMAIL_USE_TLS: '{{ smtp_use_tls }}'
+      DEFAULT_FROM_EMAIL: '{{ smtp_user }}@{{ smtp_host_from }}'
+      SERVER_EMAIL: '{{ smtp_user }}@{{ smtp_host_from }}'
+      SITE_ID: '2'
+      MAIN_PROJECT_NAME: 'grand-challenges'
+      MEDIA_ROOT: '/dbox/Dropbox/comicframework/'
+      SOCIAL_AUTH_GOOGLE_OAUTH2_KEY: '{{ social_auth_google_oauth2_key }}'
+      SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET: '{{ social_auth_google_oauth2_secret }}'
+      GOOGLE_MAPS_API_KEY: '{{ google_maps_api_key }}'
+      SUBDOMAIN_IS_PROJECTNAME: 'True'
+      MAIN_HOST_NAME: 'https://{{ server_name }}'
+      SESSION_COOKIE_DOMAIN: '.{{ server_name }}'
+      SESSION_COOKIE_SECURE: 'True'
+      CSRF_COOKIE_SECURE: 'True'
+      SECURE_HSTS_SECONDS: '3600'
+      SECURE_HSTS_INCLUDE_SUBDOMAINS: 'True'
+      SECURE_CONTENT_TYPE_NOSNIFF: 'True'
+      SECURE_BROWSER_XSS_FILTER: 'True'
+      X_FRAME_OPTIONS: 'DENY'
+      GOOGLE_ANALYTICS_ID: '{{ google_analytics_tracking_id }}'
+      DJANGO_SENTRY_DSN: 'https://ad4b4cf5222944519702ecb13bd565c1@sentry.io/1326705'
+      DJANGO_ADMIN_URL: 'admin'
+      MANAGER_EMAIL: '{{ sysadmin_mail_to }}'
+    command: >-
+      bash -c "
+      gunicorn -w 4 -b 0.0.0.0 config.wsgi
+      "
+    volumes:
+      - static:/static/
+    healthcheck:
+      test: ["CMD-SHELL", "curl http://web:8000/ || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: always
+    logging:
+      driver: syslog
+
+  http:
+    image: nginx:stable-alpine
+    volumes:
+      - /nginx.conf:/etc/nginx/nginx.conf
+      - static:/srv/public/static/
+    restart: always
+    logging:
+      driver: syslog
+
+  memcached:
+    image: memcached:1.4
+    restart: always
+    logging:
+      driver: syslog
+
+  redis:
+    image: redis:4.0
+    command: redis-server --appendonly yes
+    restart: always
+    volumes:
+      - /srv/redis:/data  
+    logging:
+      driver: syslog
+
+  celery_worker:
+    image: grandchallenge/web:2064
+    environment:
+      <<: *djangoenv
+    command: "celery -A config worker -l info -c 1"
+    volumes:
+      - static:/static/
+    logging:
+      driver: syslog
+    restart: always
+
+  celery_worker_evaluation:
+    image: grandchallenge/web:2064
+    environment:
+      <<: *djangoenv
+    command: "celery -A config worker -l info -Q evaluation -c 1"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - static:/static/
+    logging:
+      driver: syslog
+    restart: always
+
+  celery_beat:
+    image: grandchallenge/web:2064
+    environment:
+      <<: *djangoenv
+    command: "celery -A config beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler --pidfile=\"/tmp/celerybeat.pid\""
+    volumes:
+      - static:/static/
+    logging:
+      driver: syslog
+    restart: always
+
+  flower:
+    image: crgwbr/docker-celery-flower
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+    ports:
+      - "5555:5555"
+    restart: always
+    logging:
+      driver: syslog
+
+volumes:
+  static:

@@ -1,0 +1,107 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.17.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: celery-worker
+  name: celery-worker
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: celery-worker
+    spec:
+      containers:
+      - args:
+        - celery
+        - -A
+        - config
+        - worker
+        - -l
+        - info
+        - -c
+        - "1"
+        env:
+        - name: CSRF_COOKIE_SECURE
+          value: "True"
+        - name: DEBUG
+          value: '{{ django_debug }}'
+        - name: DEFAULT_FROM_EMAIL
+          value: '{{ smtp_user }}@{{ smtp_host_from }}'
+        - name: DJANGO_ADMIN_URL
+          value: admin
+        - name: DJANGO_SENTRY_DSN
+          value: https://ad4b4cf5222944519702ecb13bd565c1@sentry.io/1326705
+        - name: EMAIL_HOST
+          value: '{{ django_smtp_host }}'
+        - name: EMAIL_HOST_PASSWORD
+          value: '{{ smtp_password }}'
+        - name: EMAIL_HOST_USER
+          value: '{{ smtp_user }}'
+        - name: EMAIL_PORT
+          value: '{{ smtp_port }}'
+        - name: EMAIL_USE_TLS
+          value: '{{ smtp_use_tls }}'
+        - name: GOOGLE_ANALYTICS_ID
+          value: '{{ google_analytics_tracking_id }}'
+        - name: GOOGLE_MAPS_API_KEY
+          value: '{{ google_maps_api_key }}'
+        - name: MAIN_HOST_NAME
+          value: https://{{ server_name }}
+        - name: MAIN_PROJECT_NAME
+          value: grand-challenges
+        - name: MANAGER_EMAIL
+          value: '{{ sysadmin_mail_to }}'
+        - name: MEDIA_ROOT
+          value: /dbox/Dropbox/comicframework/
+        - name: POSTGRES_DB
+          value: comic_db_name
+        - name: POSTGRES_PASSWORD
+          value: comic_db_user_password
+        - name: POSTGRES_USER
+          value: comic_db_user
+        - name: SECRET_KEY
+          value: '{{ django_secret_key }}'
+        - name: SECURE_BROWSER_XSS_FILTER
+          value: "True"
+        - name: SECURE_CONTENT_TYPE_NOSNIFF
+          value: "True"
+        - name: SECURE_HSTS_INCLUDE_SUBDOMAINS
+          value: "True"
+        - name: SECURE_HSTS_SECONDS
+          value: "3600"
+        - name: SERVER_EMAIL
+          value: '{{ smtp_user }}@{{ smtp_host_from }}'
+        - name: SESSION_COOKIE_DOMAIN
+          value: .{{ server_name }}
+        - name: SESSION_COOKIE_SECURE
+          value: "True"
+        - name: SITE_ID
+          value: "2"
+        - name: SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
+          value: '{{ social_auth_google_oauth2_key }}'
+        - name: SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
+          value: '{{ social_auth_google_oauth2_secret }}'
+        - name: SUBDOMAIN_IS_PROJECTNAME
+          value: "True"
+        - name: X_FRAME_OPTIONS
+          value: DENY
+        image: grandchallenge/web:2064
+        name: celery-worker
+        resources: {}
+        volumeMounts:
+        - mountPath: /static/
+          name: static
+      restartPolicy: Always
+      volumes:
+      - name: static
+        persistentVolumeClaim:
+          claimName: static
+status: {}
