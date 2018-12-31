@@ -41,7 +41,7 @@ spec:
         name: postgres
         resources: {}
         volumeMounts:
-        - mountPath: /var/lib/postgresql/data/pgdata
+        - mountPath: /var/lib/postgresql/data
           name: postgres-claim0
       restartPolicy: Always
       volumes:
