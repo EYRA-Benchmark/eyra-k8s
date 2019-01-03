@@ -57,11 +57,20 @@ spec:
         - name: MEDIA_ROOT
           value: /dbox/Dropbox/comicframework/
         - name: POSTGRES_DB
-          value: comic_db_name
+          valueFrom:
+            secretKeyRef:
+              name: postgres-db
+              key: POSTGRES_DB
         - name: POSTGRES_PASSWORD
-          value: comic_db_user_password
+          valueFrom: 
+            secretKeyRef:
+              name: postgres_db
+              key: POSTGRES_PASSWORD
         - name: POSTGRES_USER
-          value: comic_db_user
+          valueFrom:
+            secretKeyRef:
+              name: postgres_db
+              key: POSTGRES_USER
         - name: SECRET_KEY
           value: '{{ django_secret_key }}'
         - name: SECURE_BROWSER_XSS_FILTER
