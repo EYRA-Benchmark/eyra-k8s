@@ -21,7 +21,7 @@ spec:
       containers:
       - env:
         - name: PGDATA
-          value: /var/lib/postgresql/data/pgdata
+          value: /var/lib/postgresql/data
         - name: POSTGRES_DB
           valueFrom:
             secretKeyRef:
@@ -50,7 +50,7 @@ spec:
         name: postgres
         resources: {}
         volumeMounts:
-        - mountPath: /var/lib/postgresql/data/pgdata
+        - mountPath: /var/lib/postgresql/data
           name: postgres-claim0
       restartPolicy: Always
       volumes:
