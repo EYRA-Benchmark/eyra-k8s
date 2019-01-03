@@ -48,7 +48,7 @@ spec:
             secretKeyRef:
               name: postgres-db
               key: POSTGRES_USER
-        image: grandchallenge/web:2097-eyra-master
+        image: grandchallenge/web:2099-eyra-master
         name: celery-worker
         resources: {}
       restartPolicy: Always
