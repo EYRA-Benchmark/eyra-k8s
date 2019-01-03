@@ -49,6 +49,8 @@ spec:
           timeoutSeconds: 5
         name: postgres
         resources: {}
+        ports:
+        - containerPort: 5432
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           name: postgres-claim0

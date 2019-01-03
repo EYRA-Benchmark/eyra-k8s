@@ -10,10 +10,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - test.eyrabenchmark.net
+    - eyra.ddns.net
     secretName: test-ingress-letsencrypt
   rules:
-  - host: test.eyrabenchmark.net
+  - host: eyra.ddns.net
     http:
       paths:
       - path: /
