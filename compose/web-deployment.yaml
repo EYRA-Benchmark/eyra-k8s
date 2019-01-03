@@ -90,7 +90,7 @@ spec:
         - name: SERVER_EMAIL
           value: 'eyra.benchmark@gmail.com'
         - name: SESSION_COOKIE_DOMAIN
-          value: api.staging.eyrabenchmark.net 
+          value: .staging.eyrabenchmark.net 
         - name: SESSION_COOKIE_SECURE
           value: "True"
         - name: SITE_ID
