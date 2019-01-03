@@ -6,8 +6,8 @@ metadata:
     kompose.version: 1.17.0 ()
   creationTimestamp: null
   labels:
-    io.kompose.service: flower
-  name: flower
+    io.kompose.service: celery-flower
+  name: celery-flower
 spec:
   replicas: 1
   strategy: {}
@@ -15,14 +15,14 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        io.kompose.service: flower
+        io.kompose.service: celery-flower
     spec:
       containers:
       - env:
         - name: CELERY_BROKER_URL
-          value: redis://redis:6379/0
+          value: redis://redis-service:6379/0
         image: crgwbr/docker-celery-flower
-        name: flower
+        name: celery-flower
         ports:
         - containerPort: 5555
         resources: {}
