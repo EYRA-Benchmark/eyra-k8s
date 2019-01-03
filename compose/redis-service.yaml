@@ -1,12 +1,12 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: postgres-service
+  name: redis-service
 spec:
   selector:
-    app: postgres
+    app: redis
   ports:
     - protocol: TCP
-      port: 5432
-      targetPort: 5432
+      port: 6379
+      targetPort: 6379
 

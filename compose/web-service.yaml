@@ -1,12 +1,12 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: postgres-service
+  name: web-service
 spec:
   selector:
-    app: postgres
+    app: web
   ports:
     - protocol: TCP
-      port: 5432
-      targetPort: 5432
+      port: 8000
+      targetPort: 8000
 

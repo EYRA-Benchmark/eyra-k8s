@@ -6,6 +6,7 @@ metadata:
     kompose.version: 1.17.0 ()
   creationTimestamp: null
   labels:
+    app: postgres
     io.kompose.service: postgres
   name: postgres
 spec:
@@ -16,12 +17,13 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
+        app: postgres
         io.kompose.service: postgres
     spec:
       containers:
       - env:
         - name: PGDATA
-          value: /var/lib/postgresql/data
+          value: /var/lib/postgresql/data/pgdata
         - name: POSTGRES_DB
           valueFrom:
             secretKeyRef:
@@ -41,9 +43,9 @@ spec:
         livenessProbe:
           exec:
             command:
-            - pg_isready
-            - -U
-            - $POSTGRES_USER
+            - sh
+            - -c
+            - "pg_isready -U $POSTGRES_USER"
           failureThreshold: 5
           periodSeconds: 10
           timeoutSeconds: 5
