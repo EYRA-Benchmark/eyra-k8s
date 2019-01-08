@@ -2,12 +2,13 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert -c -f docker-compose.yml
+    kompose.cmd: kompose convert -f docker-compose.yml
     kompose.version: 1.17.0 ()
   creationTimestamp: null
   labels:
-    io.kompose.service: celery-worker
-  name: celery-worker
+    app: web
+    io.kompose.service: web
+  name: web
 spec:
   replicas: 1
   strategy:
@@ -16,59 +17,68 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        io.kompose.service: celery-worker
+        app: web
+        io.kompose.service: web
     spec:
       containers:
       - args:
-        - celery
-        - -A
-        - config
-        - worker
-        - -l
-        - info
+        - bash
         - -c
-        - "1"
+        - ' gunicorn -w 4 -b 0.0.0.0 config.wsgi '
         env:
+        - name: CELERY_BROKER_URL
+          value: redis://redis-service:6379
         - name: CSRF_COOKIE_SECURE
           value: "True"
         - name: DEBUG
-          value: '{{ django_debug }}'
+          value: "True"
         - name: DEFAULT_FROM_EMAIL
-          value: '{{ smtp_user }}@{{ smtp_host_from }}'
+          value: 'eyra.benchmark@gmail.com'
         - name: DJANGO_ADMIN_URL
           value: admin
         - name: DJANGO_SENTRY_DSN
           value: https://ad4b4cf5222944519702ecb13bd565c1@sentry.io/1326705
         - name: EMAIL_HOST
-          value: '{{ django_smtp_host }}'
+          value: "smtp.gmail.com"
         - name: EMAIL_HOST_PASSWORD
-          value: '{{ smtp_password }}'
+          value: 'KAj@ELvo*5c3hQf0'
         - name: EMAIL_HOST_USER
-          value: '{{ smtp_user }}'
+          value: 'eyra.benchmark@gmail.com'
         - name: EMAIL_PORT
-          value: '{{ smtp_port }}'
+          value: '587'
         - name: EMAIL_USE_TLS
-          value: '{{ smtp_use_tls }}'
+          value: 'True'
         - name: GOOGLE_ANALYTICS_ID
-          value: '{{ google_analytics_tracking_id }}'
+          value: 'UA-XXXXX-Y'
         - name: GOOGLE_MAPS_API_KEY
-          value: '{{ google_maps_api_key }}'
+          value: 'CHANGEME!!!'
         - name: MAIN_HOST_NAME
-          value: https://{{ server_name }}
+          value: https://384c82ad-a82b-40d3-a8ed-17965c0b61b3.k8s.ondigitalocean.com
         - name: MAIN_PROJECT_NAME
           value: grand-challenges
         - name: MANAGER_EMAIL
-          value: '{{ sysadmin_mail_to }}'
+          value: 'eyra.benchmark@gmail.com'
         - name: MEDIA_ROOT
           value: /dbox/Dropbox/comicframework/
+        - name: POSTGRES_HOST
+          value: postgres-service
         - name: POSTGRES_DB
-          value: comic_db_name
+          valueFrom:
+            secretKeyRef:
+              name: postgres-db
+              key: POSTGRES_DB
         - name: POSTGRES_PASSWORD
-          value: comic_db_user_password
+          valueFrom: 
+            secretKeyRef:
+              name: postgres-db
+              key: POSTGRES_PASSWORD
         - name: POSTGRES_USER
-          value: comic_db_user
+          valueFrom:
+            secretKeyRef:
+              name: postgres-db
+              key: POSTGRES_USER
         - name: SECRET_KEY
-          value: '{{ django_secret_key }}'
+          value: 'p$$^$$w*1*q!fchwr1r6c%4asb5*js14p)wm1z+1e)a%jyze9=d='
         - name: SECURE_BROWSER_XSS_FILTER
           value: "True"
         - name: SECURE_CONTENT_TYPE_NOSNIFF
@@ -78,30 +88,39 @@ spec:
         - name: SECURE_HSTS_SECONDS
           value: "3600"
         - name: SERVER_EMAIL
-          value: '{{ smtp_user }}@{{ smtp_host_from }}'
+          value: 'eyra.benchmark@gmail.com'
         - name: SESSION_COOKIE_DOMAIN
-          value: .{{ server_name }}
+          value: .staging.eyrabenchmark.net 
         - name: SESSION_COOKIE_SECURE
           value: "True"
         - name: SITE_ID
           value: "2"
         - name: SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
-          value: '{{ social_auth_google_oauth2_key }}'
+          value: ''
         - name: SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
-          value: '{{ social_auth_google_oauth2_secret }}'
+          value: ''
         - name: SUBDOMAIN_IS_PROJECTNAME
+          value: "True"
+        - name: WHITENOISE
           value: "True"
         - name: X_FRAME_OPTIONS
           value: DENY
-        image: grandchallenge/web:2064
-        name: celery-worker
+        image: grandchallenge/web:2099-eyra-master
+        #        livenessProbe:
+        # exec:
+        #   command:
+        #   - curl http://web:8000/ || exit 1
+        # failureThreshold: 5
+        # periodSeconds: 10
+        # timeoutSeconds: 5
+        name: web
         resources: {}
-        volumeMounts:
-        - mountPath: /static/
-          name: static
+        #volumeMounts:
+        #- mountPath: /static/
+        #  name: static-claim0
       restartPolicy: Always
-      volumes:
-      - name: static
-        persistentVolumeClaim:
-          claimName: static
+      #      volumes:
+      #- name: static-claim0
+      #  persistentVolumeClaim:
+      #    claimName: static-claim0
 status: {}
