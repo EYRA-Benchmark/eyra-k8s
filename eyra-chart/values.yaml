@@ -30,13 +30,20 @@ ingress:
   #      - chart-example.local
 
 postgresql:
+  #existingSecret: nil # eyra-postgresql
   postgresqlUsername: comic
   postgresqlDatabase: comic
+  initdbScripts:
+    setup.sql: |
+      ALTER USER comic WITH SUPERUSER;
 
 redis:
   usePassword: false
   cluster:
     enabled: false
+
+web:
+  travisBuildID: 2099-eyra-master
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

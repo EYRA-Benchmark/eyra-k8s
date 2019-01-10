@@ -99,7 +99,7 @@ spec:
           value: "True"
         - name: X_FRAME_OPTIONS
           value: DENY
-        image: grandchallenge/web:2099-eyra-master
+        image: grandchallenge/web:{{ .Values.web.travisBuildID }}
         #        livenessProbe:
         # exec:
         #   command:

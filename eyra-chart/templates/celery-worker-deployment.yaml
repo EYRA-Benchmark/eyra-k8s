@@ -42,7 +42,7 @@ spec:
             secretKeyRef:
               name: eyra-postgresql
               key: postgresql-password
-        image: grandchallenge/web:2099-eyra-master
+        image: grandchallenge/web:{{ .Values.web.travisBuildID }}
         name: celery-worker
         resources: {}
       restartPolicy: Always
