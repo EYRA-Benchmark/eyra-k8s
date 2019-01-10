@@ -27,7 +27,7 @@ spec:
         - ' gunicorn -w 4 -b 0.0.0.0 config.wsgi '
         env:
         - name: CELERY_BROKER_URL
-          value: redis://redis-service:6379
+          value: redis://eyra-redis-master:6379
         - name: CSRF_COOKIE_SECURE
           value: "True"
         - name: DEBUG
@@ -61,22 +61,16 @@ spec:
         - name: MEDIA_ROOT
           value: /dbox/Dropbox/comicframework/
         - name: POSTGRES_HOST
-          value: postgres-service
+          value: eyra-postgresql
         - name: POSTGRES_DB
-          valueFrom:
-            secretKeyRef:
-              name: postgres-db
-              key: POSTGRES_DB
+          value: {{ .Values.postgresql.postgresqlDatabase }}
+        - name: POSTGRES_USER
+          value: {{ .Values.postgresql.postgresqlUsername }}
         - name: POSTGRES_PASSWORD
           valueFrom: 
             secretKeyRef:
-              name: postgres-db
-              key: POSTGRES_PASSWORD
-        - name: POSTGRES_USER
-          valueFrom:
-            secretKeyRef:
-              name: postgres-db
-              key: POSTGRES_USER
+              name: eyra-postgresql
+              key: postgresql-password
         - name: SECRET_KEY
           value: 'p$$^$$w*1*q!fchwr1r6c%4asb5*js14p)wm1z+1e)a%jyze9=d='
         - name: SECURE_BROWSER_XSS_FILTER

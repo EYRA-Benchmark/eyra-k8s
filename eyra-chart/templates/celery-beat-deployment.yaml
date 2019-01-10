@@ -31,24 +31,18 @@ spec:
         - --pidfile=/tmp/celerybeat.pid
         env:
         - name: CELERY_BROKER_URL
-          value: redis://redis-service:6379
+          value: redis://eyra-redis-master:6379
         - name: POSTGRES_HOST
-          value: postgres-service
+          value: eyra-postgresql
         - name: POSTGRES_DB
-          valueFrom:
-            secretKeyRef:
-              name: postgres-db
-              key: POSTGRES_DB
+          value: {{ .Values.postgresql.postgresqlDatabase }}
+        - name: POSTGRES_USER
+          value: {{ .Values.postgresql.postgresqlUsername }}
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: postgres-db
-              key: POSTGRES_PASSWORD
-        - name: POSTGRES_USER
-          valueFrom:
-            secretKeyRef:
-              name: postgres-db
-              key: POSTGRES_USER
+              name: eyra-postgresql
+              key: postgresql-password
         image: grandchallenge/web:2099-eyra-master
         name: celery-beat
         resources: {}

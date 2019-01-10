@@ -20,7 +20,7 @@ spec:
       containers:
       - env:
         - name: CELERY_BROKER_URL
-          value: redis://redis-service:6379/0
+          value: redis://eyra-redis-master:6379/0
         image: crgwbr/docker-celery-flower
         name: celery-flower
         ports:
