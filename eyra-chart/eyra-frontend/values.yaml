@@ -1,0 +1,38 @@
+image:
+  repository: eyra/frontend
+  tag: 139
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
+    kubernetes.io/tls-acme: "true"
+    certmanager.k8s.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: "nginx"
+  paths:
+    - /
+  hosts:
+    - staging.eyrabenchmark.net
+    - www.staging.eyrabenchmark.net
+  tls:
+    - secretName: staging.eyrabenchmark.net-tls
+      hosts:
+        - staging.eyrabenchmark.net
+    - secretName: www.staging.eyrabenchmark.net-tls
+      hosts:
+        - www.staging.eyrabenchmark.net
+
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
