@@ -6,6 +6,7 @@ metadata:
     kompose.version: 1.17.0 ()
   creationTimestamp: null
   labels:
+    app: redis
     io.kompose.service: redis
   name: redis
 spec:
@@ -16,6 +17,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
+        app: redis
         io.kompose.service: redis
     spec:
       containers:

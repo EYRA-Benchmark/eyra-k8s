@@ -1,0 +1,11 @@
+dependencies:
+  - name: postgresql
+    version: 3.0.0
+    repository: https://kubernetes-charts.storage.googleapis.com
+  - name: redis
+    version: 5.0.0
+    repository: https://kubernetes-charts.storage.googleapis.com
+  - name: memcached
+    version: 2.5.0
+    repository: https://kubernetes-charts.storage.googleapis.com
+

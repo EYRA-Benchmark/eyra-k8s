@@ -6,6 +6,7 @@ metadata:
     kompose.version: 1.17.0 ()
   creationTimestamp: null
   labels:
+    app: postgres
     io.kompose.service: postgres
   name: postgres
 spec:
@@ -16,6 +17,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
+        app: postgres
         io.kompose.service: postgres
     spec:
       containers:
@@ -41,16 +43,18 @@ spec:
         livenessProbe:
           exec:
             command:
-            - pg_isready
-            - -U
-            - $POSTGRES_USER
+            - sh
+            - -c
+            - "pg_isready -U $POSTGRES_USER"
           failureThreshold: 5
           periodSeconds: 10
           timeoutSeconds: 5
         name: postgres
         resources: {}
+        ports:
+        - containerPort: 5432
         volumeMounts:
-        - mountPath: /var/lib/postgresql/data/pgdata
+        - mountPath: /var/lib/postgresql/data
           name: postgres-claim0
       restartPolicy: Always
       volumes:
