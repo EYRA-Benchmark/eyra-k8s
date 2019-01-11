@@ -1,10 +1,12 @@
 image:
   repository: eyra/frontend
-  tag: 139
+  tag: 151
   pullPolicy: IfNotPresent
 
 nameOverride: ""
 fullnameOverride: ""
+
+BACKEND_URL: "https://api.staging.eyrabenchmark.net"
 
 service:
   type: ClusterIP
