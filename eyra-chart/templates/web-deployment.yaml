@@ -90,9 +90,17 @@ spec:
         - name: SITE_ID
           value: "2"
         - name: SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
-          value: ''
+          valueFrom:
+            secretKeyRef:
+              optional: true
+              name: eyra-social-auth-google
+              key: SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
         - name: SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
-          value: ''
+          valueFrom:
+            secretKeyRef:
+              optional: true
+              name: eyra-social-auth-google
+              key: SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
         - name: SUBDOMAIN_IS_PROJECTNAME
           value: "True"
         - name: WHITENOISE
