@@ -32,7 +32,6 @@ metadata:
     kubernetes.io/tls-acme: "true"
     certmanager.k8s.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/rewrite-target: /api/v1
   name: web-ingress-api
 spec:
   tls:
@@ -46,4 +45,4 @@ spec:
       - backend:
           serviceName: web-service
           servicePort: 8000
-        path: /
+        path: /api/v1
