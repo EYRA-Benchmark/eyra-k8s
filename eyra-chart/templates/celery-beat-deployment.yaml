@@ -1,22 +1,20 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -f docker-compose.yml
-    kompose.version: 1.17.0 ()
-  creationTimestamp: null
   labels:
-    io.kompose.service: celery-beat
-  name: celery-beat
+    app.kubernetes.io/name: {{ .Release.Name }}-celery-beat
+    helm.sh/chart: {{ include "eyra.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  name: {{ .Release.Name }}-celery-beat
 spec:
   replicas: 1
   strategy:
     type: Recreate
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        io.kompose.service: celery-beat
+        app.kubernetes.io/name: {{ include "eyra.name" . }}-celery-beat
     spec:
       containers:
       - args:

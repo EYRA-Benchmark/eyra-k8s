@@ -1,10 +1,15 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: web-service
+  name: {{ .Release.Name }}-web
+  annotations:
+    app.kubernetes.io/name: {{ .Release.Name }}-web
+    helm.sh/chart: {{ include "eyra.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   selector:
-    app: web
+    app.kubernetes.io/name: {{ .Release.Name }}-web
   ports:
     - protocol: TCP
       port: 8000

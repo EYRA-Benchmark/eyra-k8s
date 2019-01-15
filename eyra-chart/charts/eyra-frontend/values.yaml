@@ -6,7 +6,7 @@ image:
 nameOverride: ""
 fullnameOverride: ""
 
-BACKEND_URL: "https://api.staging.eyrabenchmark.net"
+BACKEND_URL: "https://api.tom.dev.eyrabenchmark.net"
 
 service:
   type: ClusterIP
@@ -22,15 +22,15 @@ ingress:
   paths:
     - /
   hosts:
-    - staging.eyrabenchmark.net
-    - www.staging.eyrabenchmark.net
+    - tom.dev.eyrabenchmark.net
+    - www.tom.dev.eyrabenchmark.net
   tls:
-    - secretName: staging.eyrabenchmark.net-tls
+    - secretName: tom.dev.eyrabenchmark.net-tls
       hosts:
-        - staging.eyrabenchmark.net
-    - secretName: www.staging.eyrabenchmark.net-tls
+        - tom.dev.eyrabenchmark.net
+    - secretName: www.tom.dev.eyrabenchmark.net-tls
       hosts:
-        - www.staging.eyrabenchmark.net
+        - www.tom.dev.eyrabenchmark.net
 
 
 nodeSelector: {}

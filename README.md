@@ -10,3 +10,7 @@ Kubernetes configuration for EYRA deployment
 - python manage.py migrate
 - python manage.py check_permissions
 - python manage.py initcomicdemo (this end with an error...)
+
+# Creating a dev namespace
+- kubectl create namespace tom-dev
+-

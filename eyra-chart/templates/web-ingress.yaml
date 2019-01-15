@@ -3,6 +3,10 @@ kind: Ingress
 metadata:
   name: web-ingress-comic
   annotations:
+    app.kubernetes.io/name: {{ .Release.Name }}-web
+    helm.sh/chart: {{ include "eyra.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
     ingress.kubernetes.io/ssl-redirect: "true"
     kubernetes.io/tls-acme: "true"
     certmanager.k8s.io/cluster-issuer: letsencrypt
@@ -10,19 +14,19 @@ metadata:
 spec:
   tls:
   - hosts:
-    - comic.staging.eyrabenchmark.net
-    - demo.comic.staging.eyrabenchmark.net
+    - comic.{{ .Values.domain }}
+    - demo.comic.{{ .Values.domain }}
     secretName: web-ingress-comic-letsencrypt
 
   rules:
-  - host: 'comic.staging.eyrabenchmark.net'
+  - host: 'comic.{{ .Values.domain }}'
     http:
       paths:
       - path: /
         backend:
           serviceName: web-service
           servicePort: 8000
-  - host: 'demo.comic.staging.eyrabenchmark.net'
+  - host: 'demo.comic.{{ .Values.domain }}'
     http:
       paths:
       - path: /
@@ -36,6 +40,10 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   annotations:
+    app.kubernetes.io/name: {{ .Release.Name }}-web
+    helm.sh/chart: {{ include "eyra.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
     ingress.kubernetes.io/ssl-redirect: "true"
     kubernetes.io/tls-acme: "true"
     certmanager.k8s.io/cluster-issuer: letsencrypt
@@ -44,10 +52,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - api.staging.eyrabenchmark.net
+    - api.{{ .Values.domain }}
     secretName: web-ingress-api-letsencrypt
   rules:
-  - host: api.staging.eyrabenchmark.net
+  - host: api.{{ .Values.domain }}
     http:
       paths:
       - backend:
