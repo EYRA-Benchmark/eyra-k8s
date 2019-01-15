@@ -1,3 +1,4 @@
+{{- if .Values.dev -}}
 {{- if .Values.dev.name -}}
 #apiVersion: v1
 #kind: Namespace
@@ -33,4 +34,5 @@ subjects:
 - kind: User
   name: system:serviceaccount:{{ .Values.dev.namespace }}:{{ .Values.dev.name }}
   apiGroup: rbac.authorization.k8s.io
+{{ end }}
 {{ end }}

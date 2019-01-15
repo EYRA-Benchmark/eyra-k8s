@@ -15,6 +15,7 @@ spec:
     metadata:
       labels:
         app: web
+        app.kubernetes.io/name: {{ .Release.Name }}-web
     spec:
       containers:
       - args:
