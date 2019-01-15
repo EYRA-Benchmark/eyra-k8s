@@ -30,17 +30,12 @@ ingress:
   #      - chart-example.local
 
 postgresql:
-  #existingSecret: nil # eyra-postgresql
-  #existingSecret: eyra-postgresql
+  existingSecret: eyra-postgresql
   postgresqlUsername: comic
   postgresqlDatabase: comic
   initdbScripts:
     setup.sql: |
       ALTER USER comic WITH SUPERUSER;
-
-    set_password.sh: |
-      #!/bin/sh
-      psql -U $POSTGRESQL_USERNAME -c 'ALTER USER user_name WITH PASSWORD "${POSTGRESQL_PASSWORD}";'
 
 redis:
   usePassword: false

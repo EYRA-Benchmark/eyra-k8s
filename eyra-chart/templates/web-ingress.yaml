@@ -11,10 +11,18 @@ spec:
   tls:
   - hosts:
     - comic.staging.eyrabenchmark.net
+    - demo.comic.staging.eyrabenchmark.net
     secretName: web-ingress-comic-letsencrypt
 
   rules:
-  - host: comic.staging.eyrabenchmark.net
+  - host: 'comic.staging.eyrabenchmark.net'
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: web-service
+          servicePort: 8000
+  - host: 'demo.comic.staging.eyrabenchmark.net'
     http:
       paths:
       - path: /
