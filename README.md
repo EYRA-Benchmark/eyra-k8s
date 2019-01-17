@@ -17,10 +17,18 @@ Kubernetes configuration for EYRA deployment
 
 # Get a local shell connected to the cluster
 
-- telepresence
-- If you want to copy the environment from an existing pod, run eg: `kubectl exec <name_of_pod> sh -- -c export`
-- Your env will be overwritten by the pods env, so you might want to run another shell to reset local env
-
+- `telepresence --run-shell`
+- If you want your env vars to be copied from a pods env, first copy the
+  env, then export your local env back because it overwrites some values:
+```
+# run telepresence with sh, so that import/export is consistent
+telepresence --run sh
+OLD_ENV=$(export -p)
+set -o allexport
+$(kubectl exec eyra-dev-tom-web-5958f799b6-ng2cv sh -- -c env)
+set +o allexport
+eval $OLD_ENV
+```
 # Use a local PyCharm dev server with the cluster
 
 - ensure telepresence is installed
