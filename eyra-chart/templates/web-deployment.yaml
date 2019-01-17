@@ -28,48 +28,61 @@ spec:
         - name: CSRF_COOKIE_SECURE
           value: "True"
         - name: DEBUG
-          value: "True"
+          value: '{{ .Values.web.debug }}'
         - name: DEFAULT_FROM_EMAIL
-          value: 'eyra.benchmark@gmail.com'
+          value: {{ .Values.web.emailAddress }}
         - name: DJANGO_ADMIN_URL
           value: admin
         - name: DJANGO_SENTRY_DSN
-          value: https://ad4b4cf5222944519702ecb13bd565c1@sentry.io/1326705
+          valueFrom:
+            secretKeyRef:
+              name: eyra-sentry
+              key: dsn
         - name: EMAIL_HOST
-          value: "smtp.gmail.com"
+          value: '{{ .Values.web.emailHost }}'
         - name: EMAIL_HOST_PASSWORD
-          value: 'KAj@ELvo*5c3hQf0'
+          valueFrom:
+            secretKeyRef:
+              name: eyra-gmail
+              key: password
         - name: EMAIL_HOST_USER
-          value: 'eyra.benchmark@gmail.com'
+          value: '{{ .Values.web.emailAddress }}'
         - name: EMAIL_PORT
-          value: '587'
+          value: '{{ .Values.web.emailPort }}'
         - name: EMAIL_USE_TLS
-          value: 'True'
+          value: '{{ .Values.web.emailUseTLS }}'
         - name: GOOGLE_ANALYTICS_ID
-          value: 'UA-XXXXX-Y'
+          valueFrom:
+            secretKeyRef:
+              name: eyra-google-analytics
+              key: googleAnalyticsID
         - name: GOOGLE_MAPS_API_KEY
-          value: 'CHANGEME!!!'
-        - name: MAIN_HOST_NAME
-          value: https://384c82ad-a82b-40d3-a8ed-17965c0b61b3.k8s.ondigitalocean.com
+          valueFrom:
+            secretKeyRef:
+              name: eyra-google-maps
+              key: apiKey
         - name: MAIN_PROJECT_NAME
-          value: grand-challenges
+          value: '{{ .Values.web.mainProjectName }}'
         - name: MANAGER_EMAIL
-          value: 'eyra.benchmark@gmail.com'
+          value: {{ .Values.web.emailAddress }}
         - name: MEDIA_ROOT
           value: /dbox/Dropbox/comicframework/
         - name: POSTGRES_HOST
-          value: {{ .Release.Name }}-postgresql
+          value: '{{ .Release.Name }}-postgresql'
         - name: POSTGRES_DB
           value: {{ .Values.postgresql.postgresqlDatabase }}
         - name: POSTGRES_USER
           value: {{ .Values.postgresql.postgresqlUsername }}
         - name: POSTGRES_PASSWORD
-          valueFrom: 
+          valueFrom:
             secretKeyRef:
               name: eyra-postgresql
               key: postgresql-password
         - name: SECRET_KEY
-          value: 'p$$^$$w*1*q!fchwr1r6c%4asb5*js14p)wm1z+1e)a%jyze9=d='
+          valueFrom:
+            secretKeyRef:
+              name: eyra-django
+              key: secretKey
         - name: SECURE_BROWSER_XSS_FILTER
           value: "True"
         - name: SECURE_CONTENT_TYPE_NOSNIFF
@@ -79,13 +92,13 @@ spec:
         - name: SECURE_HSTS_SECONDS
           value: "3600"
         - name: SERVER_EMAIL
-          value: 'eyra.benchmark@gmail.com'
+          value: {{ .Values.web.emailAddress }}
         - name: SESSION_COOKIE_DOMAIN
           value: .{{ .Values.domain }}
         - name: SESSION_COOKIE_SECURE
           value: "True"
         - name: SITE_ID
-          value: "2"
+          value: '{{ .Values.web.siteID }}'
         - name: SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
           valueFrom:
             secretKeyRef:
@@ -99,27 +112,13 @@ spec:
               name: eyra-social-auth-google
               key: SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
         - name: SUBDOMAIN_IS_PROJECTNAME
-          value: "True"
+          value: '{{ .Values.web.subdomainIsProjectName }}'
         - name: WHITENOISE
           value: "True"
         - name: X_FRAME_OPTIONS
           value: DENY
         image: grandchallenge/web:{{ .Values.web.travisBuildID }}
-        #        livenessProbe:
-        # exec:
-        #   command:
-        #   - curl http://web:8000/ || exit 1
-        # failureThreshold: 5
-        # periodSeconds: 10
-        # timeoutSeconds: 5
         name: web
         resources: {}
-        #volumeMounts:
-        #- mountPath: /static/
-        #  name: static-claim0
       restartPolicy: Always
-      #      volumes:
-      #- name: static-claim0
-      #  persistentVolumeClaim:
-      #    claimName: static-claim0
 status: {}

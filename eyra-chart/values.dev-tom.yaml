@@ -18,7 +18,15 @@ redis:
     enabled: false
 
 web:
+  debug: "True"
+  siteID: "2"
   travisBuildID: 2099-eyra-master
+  emailAddres: "eyra.benchmark@gmail.com"
+  emailHost: "smtp.gmail.com"
+  emailPort: '587'
+  emailUseTLS: 'True'
+  mainProjectName: 'grand-challenges'
+  subdomainIsProjectName: "True"
 
 dev:
   name: tom

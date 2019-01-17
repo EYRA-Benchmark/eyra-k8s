@@ -1,21 +1,14 @@
 {{- if .Values.dev -}}
 {{- if .Values.dev.name -}}
-#apiVersion: v1
-#kind: Namespace
-#metadata:
-#  name: dev-{{ .Values.dev.name }}
-#---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  namespace: {{ .Values.dev.namespace }}
   name: {{ .Values.dev.name }}
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: namespace-admin
-  namespace: {{ .Values.dev.namespace }}
 rules:
 - apiGroups: ["", "extensions", "apps", "batch"]
   resources: ["*"]
@@ -25,7 +18,6 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: {{ .Values.dev.name }}-admin
-  namespace: {{ .Values.dev.namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
