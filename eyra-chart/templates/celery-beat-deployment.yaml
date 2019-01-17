@@ -29,7 +29,7 @@ spec:
         - --pidfile=/tmp/celerybeat.pid
         env:
         - name: CELERY_BROKER_URL
-          value: redis://eyra-redis-master:6379
+          value: redis://{{ .Release.Name }}-redis-master:6379
         - name: POSTGRES_HOST
           value: eyra-postgresql
         - name: POSTGRES_DB
