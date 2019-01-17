@@ -12,5 +12,14 @@ Kubernetes configuration for EYRA deployment
 - python manage.py initcomicdemo (this end with an error...)
 
 # Creating a dev namespace
+
 - kubectl create namespace tom-dev
--
+
+# Use a local PyCharm dev server with the cluster
+
+- ensure telepresence is installed
+- telepresence --swap-deployment <name of your web deployment> --expose 8000 --run /bin/bash
+- Start PyCharm from the new bash terminal
+- Open the grandchallenge project
+- Run the dev server in PyCharm (no environment variables set)
+
