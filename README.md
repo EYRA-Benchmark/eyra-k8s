@@ -15,6 +15,12 @@ Kubernetes configuration for EYRA deployment
 
 - kubectl create namespace tom-dev
 
+# Get a local shell connected to the cluster
+
+- telepresence
+- If you want to copy the environment from an existing pod, run eg: `kubectl exec <name_of_pod> sh -- -c export`
+- Your env will be overwritten by the pods env, so you might want to run another shell to reset local env
+
 # Use a local PyCharm dev server with the cluster
 
 - ensure telepresence is installed
