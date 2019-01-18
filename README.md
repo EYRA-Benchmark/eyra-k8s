@@ -37,3 +37,8 @@ eval $OLD_ENV
 - Open the grandchallenge project
 - Run the dev server in PyCharm (no environment variables set)
 
+## Telepresence crash
+One thing that can happen is that telepresence crashes (I haven't seen this), or that your machine falls off the network for any reason (bad wifi, laptop lid closed, etc.). Unfortunately, telepresence doesn't clean up in this case, leaving the original service unreachable. In this case you can do the following to restore the original deployment:
+- kubectl delete svc,deploy -l telepresence
+- kubectl scale --replicas=1 deploy [original deployment name]
+

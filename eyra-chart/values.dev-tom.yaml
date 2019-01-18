@@ -20,7 +20,7 @@ redis:
 web:
   debug: "True"
   siteID: "2"
-  travisBuildID: 2188-eyra-master
+  travisBuildID: 2190-eyra-master
   emailAddres: "eyra.benchmark@gmail.com"
   emailHost: "smtp.gmail.com"
   emailPort: '587'
