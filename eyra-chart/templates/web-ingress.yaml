@@ -62,3 +62,33 @@ spec:
           serviceName: {{ .Release.Name }}-web
           servicePort: 8000
         path: /api/v1
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    app.kubernetes.io/name: {{ .Release.Name }}-docker-registry
+    helm.sh/chart: {{ include "eyra.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    ingress.kubernetes.io/ssl-redirect: "true"
+    kubernetes.io/tls-acme: "true"
+    certmanager.k8s.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+  name: web-ingress-docker-registry
+spec:
+  tls:
+  - hosts:
+    - docker-registry.{{ .Values.domain }}
+    secretName: web-ingress-docker-registry-letsencrypt
+  rules:
+  - host: docker-registry.{{ .Values.domain }}
+    http:
+      paths:
+        - backend:
+            serviceName: {{ .Release.Name }}-docker-registry
+            servicePort: 5000
+          path: /
