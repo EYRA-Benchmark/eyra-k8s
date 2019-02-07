@@ -33,6 +33,9 @@ docker-registry:
     enabled: true
     size: 10Gi
 
+minio:
+  existingSecret: "eyra-minio"
+
 dev:
   name: "roel"
   namespace: "dev-roel"

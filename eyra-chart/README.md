@@ -18,7 +18,11 @@ Docker registry listing::
     curl -X GET https://docker-registry.roel.dev.eyrabenchmark.net/v2/_catalog
     curl -X GET https://docker-registry.roel.dev.eyrabenchmark.net/v2/rzi/blabla/tags/list
     
-Push image to Docker registry:
+Push image to Docker registry::
 
     docker tag <image hash> docker-registry.roel.dev.eyrabenchmark.net/<repository>
     docker push docker-registry.roel.dev.eyrabenchmark.net/<repository>
+    
+Update secrets.yaml (use password from LastPass)::
+    
+    zip -e secrets.zip secrets.yaml
