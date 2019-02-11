@@ -11,7 +11,7 @@ To update google social api keys::
 
 To update the helm configuration in the cluster after changing the helm chart::
 
-    help upgrade -f ./eyra-chart/values.yaml eyra ./eyra-chart
+    helm upgrade -f ./eyra-chart/values.yaml eyra ./eyra-chart
 
 Docker registry listing::
 
