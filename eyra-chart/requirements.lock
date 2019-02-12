@@ -8,5 +8,11 @@ dependencies:
 - name: memcached
   repository: https://kubernetes-charts.storage.googleapis.com
   version: 2.5.0
-digest: sha256:fa576265643c4ae7b1bbd6cb4d8b024862537343b7c23f4167c2b05863773fbd
-generated: 2019-01-10T11:00:16.693375+01:00
+- name: docker-registry
+  repository: https://kubernetes-charts.storage.googleapis.com
+  version: 1.6.3
+- name: minio
+  repository: https://kubernetes-charts.storage.googleapis.com
+  version: 2.4.2
+digest: sha256:e39cc038fd802da176c696d812ade55e9bf611512e6ff3f48d6b2ea32933d454
+generated: 2019-02-07T16:27:36.491199+01:00

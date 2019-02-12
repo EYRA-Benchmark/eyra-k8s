@@ -28,9 +28,17 @@ web:
   mainProjectName: 'grand-challenges'
   subdomainIsProjectName: "True"
 
+docker-registry:
+  persistence:
+    enabled: true
+    size: 10Gi
+
+minio:
+  existingSecret: "eyra-minio"
+
 dev:
-  name: roel
-  namespace: dev-roel
+  name: "roel"
+  namespace: "dev-roel"
 
 domain: roel.dev.eyrabenchmark.net
 

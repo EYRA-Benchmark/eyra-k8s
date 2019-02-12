@@ -8,4 +8,9 @@ dependencies:
   - name: memcached
     version: 2.5.0
     repository: https://kubernetes-charts.storage.googleapis.com
-
+  - name: docker-registry
+    version: 1.6.3
+    repository: https://kubernetes-charts.storage.googleapis.com
+  - name: minio
+    version: 2.4.2
+    repository: https://kubernetes-charts.storage.googleapis.com
