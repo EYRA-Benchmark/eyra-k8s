@@ -29,9 +29,10 @@ web:
   subdomainIsProjectName: "True"
 
 dev:
-  # Empty
+  name: maarten
+  namespace: dev-maarten
 
-domain: staging.eyrabenchmark.net
+domain: maarten.dev.eyrabenchmark.net
 
 replicaCount: 1
 
@@ -62,7 +63,7 @@ eyra-frontend:
   nameOverride: ""
   fullnameOverride: ""
 
-  BACKEND_URL: "https://api.staging.eyrabenchmark.net"
+  BACKEND_URL: "https://api.maarten.dev.eyrabenchmark.net"
 
   service:
     type: ClusterIP
@@ -78,15 +79,15 @@ eyra-frontend:
     paths:
     - /
     hosts:
-    - staging.eyrabenchmark.net
-    - www.staging.eyrabenchmark.net
+    - maarten.dev.eyrabenchmark.net
+    - www.maarten.dev.eyrabenchmark.net
     tls:
-    - secretName: staging.eyrabenchmark.net-tls
+    - secretName: maarten.dev.eyrabenchmark.net-tls
       hosts:
-      - staging.eyrabenchmark.net
-    - secretName: www.staging.eyrabenchmark.net-tls
+      - maarten.dev.eyrabenchmark.net
+    - secretName: www.maarten.dev.eyrabenchmark.net-tls
       hosts:
-      - www.staging.eyrabenchmark.net
+      - www.maarten.dev.eyrabenchmark.net
 
 
   nodeSelector: {}
