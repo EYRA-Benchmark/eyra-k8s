@@ -11,8 +11,5 @@ dependencies:
 - name: docker-registry
   repository: https://kubernetes-charts.storage.googleapis.com
   version: 1.6.3
-- name: minio
-  repository: https://kubernetes-charts.storage.googleapis.com
-  version: 2.4.2
-digest: sha256:e39cc038fd802da176c696d812ade55e9bf611512e6ff3f48d6b2ea32933d454
-generated: 2019-02-07T16:27:36.491199+01:00
+digest: sha256:96d564fd180e76cef415b49787306979f92e4533a524eb8993415f88817d4b5f
+generated: 2019-02-18T17:00:37.158085+01:00
