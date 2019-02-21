@@ -1,5 +1,7 @@
 # eyra-k8s
-Kubernetes configuration for EYRA deployment
+Kubernetes configuration for EYRA deployment.
+
+NOTE: The cluster has helm 2.12.0 installed: make sure your helm version matches this!
 
 - Create a Kubernetes cluster
 - Allow ports 80 and 443 in the firewall for the cluster
@@ -52,9 +54,9 @@ To update google social api keys::
 
     helm upgrade eyra ./eyra-chart -f ./eyra-chart/values.yaml --set "SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=<GOOGLE_API_SECRET>,SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=<GOOGLE_API_CLIENT_ID>"
 
-To update the helm configuration in the cluster after changing the helm chart::
+To update the helm configuration in the cluster after changing the helm chart (assuming you are in the root of this repo)::
 
-    helm upgrade -f ./eyra-chart/values.yaml eyra ./eyra-chart
+    helm upgrade -f ./eyra-chart/values.dev-<your name>.yaml eyra-dev-<your name> ./eyra-chart
 
 Docker registry listing::
 
