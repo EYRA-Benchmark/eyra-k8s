@@ -31,10 +31,8 @@ web:
 docker-registry:
   persistence:
     enabled: true
-    size: 10Gi
-
-minio:
-  existingSecret: "eyra-minio"
+    size: 20Gi
+    deleteEnabled: true
 
 dev:
   name: "roel"
