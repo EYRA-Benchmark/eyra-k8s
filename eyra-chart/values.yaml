@@ -21,6 +21,7 @@ web:
   debug: "True"
   siteID: "2"
   travisBuildID: 2190-eyra-master
+  imageName: grandchallenge/web:2190-eyra-master
   emailAddres: "eyra.benchmark@gmail.com"
   emailHost: "smtp.gmail.com"
   emailPort: '587'

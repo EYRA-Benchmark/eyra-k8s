@@ -55,7 +55,7 @@ spec:
             secretKeyRef:
               name: do-spaces
               key: secret
-        image: grandchallenge/web:{{ .Values.web.travisBuildID }}
+        image: {{ .Values.web.imageName }}
         name: {{ .Release.Name }}-celery-worker
         resources: {}
       restartPolicy: Always
