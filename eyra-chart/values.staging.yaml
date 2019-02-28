@@ -30,10 +30,10 @@ web:
   subdomainIsProjectName: "True"
 
 dev:
-  name: carlos
-  namespace: dev-carlos
+  name: staging
+  namespace: staging
 
-domain: carlos.dev.eyrabenchmark.net
+domain: staging.eyrabenchmark.net
 
 replicaCount: 1
 
@@ -58,13 +58,13 @@ affinity: {}
 eyra-frontend:
   image:
     repository: eyra/frontend
-    tag: 244
+    tag: 275
     pullPolicy: IfNotPresent
 
   nameOverride: ""
   fullnameOverride: ""
 
-  BACKEND_URL: "https://api.carlos.dev.eyrabenchmark.net"
+  BACKEND_URL: "https://api.staging.eyrabenchmark.net"
 
   service:
     type: ClusterIP
@@ -80,15 +80,15 @@ eyra-frontend:
     paths:
     - /
     hosts:
-    - carlos.dev.eyrabenchmark.net
-    - www.carlos.dev.eyrabenchmark.net
+    - staging.eyrabenchmark.net
+    - www.staging.eyrabenchmark.net
     tls:
-    - secretName: carlos.dev.eyrabenchmark.net-tls
+    - secretName: staging.eyrabenchmark.net-tls
       hosts:
-      - carlos.dev.eyrabenchmark.net
-    - secretName: www.carlos.dev.eyrabenchmark.net-tls
+      - staging.eyrabenchmark.net
+    - secretName: www.staging.eyrabenchmark.net-tls
       hosts:
-      - www.carlos.dev.eyrabenchmark.net
+      - www.staging.eyrabenchmark.net
 
 
   nodeSelector: {}

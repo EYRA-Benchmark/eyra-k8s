@@ -20,7 +20,8 @@ redis:
 web:
   debug: "True"
   siteID: "2"
-  containerName: "grandchallenge/web:2188-eyra-master"
+#  containerName: "grandchallenge/web:2188-eyra-master"
+  imageName: "eyra/backend:latest"
 #  travisBuildID: 2188-eyra-master
   emailAddres: "eyra.benchmark@gmail.com"
   emailHost: "smtp.gmail.com"
