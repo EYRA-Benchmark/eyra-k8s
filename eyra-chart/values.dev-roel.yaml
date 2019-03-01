@@ -70,7 +70,7 @@ eyra-frontend:
   nameOverride: ""
   fullnameOverride: ""
 
-  BACKEND_URL: "https://api.roel.dev.eyrabenchmark.net"
+  BACKEND_URL: "https://api.roel.dev.eyrabenchmark.net/api/v1/"
 
   service:
     type: ClusterIP
