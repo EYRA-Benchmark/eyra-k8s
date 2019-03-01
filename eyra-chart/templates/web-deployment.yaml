@@ -99,6 +99,8 @@ spec:
             secretKeyRef:
               name: eyra-django
               key: secretKey
+        - name: SENTRY_DISABLE
+          value: '{{ .Values.web.sentryDisable }}'
         - name: K8S_NAMESPACE
           value: {{ .Release.Namespace }}
         - name: PRIVATE_DOCKER_REGISTRY

@@ -41,6 +41,8 @@ spec:
             secretKeyRef:
               name: eyra-postgresql
               key: postgresql-password
+        - name: SENTRY_DISABLE
+          value: '{{ .Values.web.sentryDisable }}'
         image: {{ .Values.web.imageName }}
         name: celery-beat
         resources: {}

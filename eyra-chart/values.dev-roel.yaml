@@ -27,6 +27,7 @@ web:
   emailUseTLS: 'True'
   mainProjectName: 'grand-challenges'
   subdomainIsProjectName: "True"
+  sentryDisable: "True"
 
 docker-registry:
   persistence:

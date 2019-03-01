@@ -55,6 +55,8 @@ spec:
             secretKeyRef:
               name: do-spaces
               key: secret
+        - name: SENTRY_DISABLE
+          value: '{{ .Values.web.sentryDisable }}'
         image: {{ .Values.web.imageName }}
         name: {{ .Release.Name }}-celery-worker
         resources: {}
