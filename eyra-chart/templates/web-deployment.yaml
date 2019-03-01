@@ -99,6 +99,10 @@ spec:
             secretKeyRef:
               name: eyra-django
               key: secretKey
+        - name: K8S_NAMESPACE
+          value: {{ .Release.Namespace }}
+        - name: PRIVATE_DOCKER_REGISTRY
+          value: docker-registry.{{ .Values.domain }}
         - name: SECURE_BROWSER_XSS_FILTER
           value: "True"
         - name: SECURE_CONTENT_TYPE_NOSNIFF
