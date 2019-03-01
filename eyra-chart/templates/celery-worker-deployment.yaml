@@ -55,6 +55,10 @@ spec:
             secretKeyRef:
               name: do-spaces
               key: secret
+        - name: K8S_NAMESPACE
+          value: {{ .Release.Namespace }}
+        - name: PRIVATE_DOCKER_REGISTRY
+          value: docker-registry.{{ .Values.domain }}
         - name: SENTRY_DISABLE
           value: '{{ .Values.web.sentryDisable }}'
         image: {{ .Values.web.imageName }}
