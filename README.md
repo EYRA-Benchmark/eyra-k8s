@@ -11,7 +11,7 @@ NOTE: The cluster has helm 2.12.0 installed: make sure your helm version matches
 - kubectl exec -it web-xxxxxx /bin/bash
 - python manage.py migrate
 - python manage.py check_permissions
-- python manage.py initcomicdemo (this end with an error...)
+- python manage.py create_demo_benchmark
 
 # Creating a dev namespace
 
