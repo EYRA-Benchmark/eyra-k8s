@@ -59,7 +59,7 @@ affinity: {}
 eyra-frontend:
   image:
     repository: eyra/frontend
-    tag: 151
+    tag: latest
     pullPolicy: IfNotPresent
 
   nameOverride: ""
@@ -78,6 +78,8 @@ eyra-frontend:
       kubernetes.io/tls-acme: "true"
       certmanager.k8s.io/cluster-issuer: letsencrypt
       kubernetes.io/ingress.class: "nginx"
+#      kubernetes.io/ingress.class: alb
+#      alb.ingress.kubernetes.io/scheme: internet-facing
     paths:
     - /
     hosts:
