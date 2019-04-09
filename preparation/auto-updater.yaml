@@ -17,8 +17,6 @@ spec:
       - name: auto-updater
         image: alpine:3.9
         command: ["/script.sh"]
-        #command: ["cat", "/script.sh"]
-        #command: [ "ls", "-l", "/" ]
         imagePullPolicy: IfNotPresent
         volumeMounts:
         - name: auto-updater-script
