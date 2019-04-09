@@ -63,7 +63,6 @@ OR: Apply the auto-updater script, this polls this github repository for updates
     kubectl -n tiller create secret generic secrets-pass --from-literal=pass='secrets.zip_password'
     kubectl apply -f preparation/auto-updater.yaml`
 
-
 Docker registry listing::
 
     curl -X GET https://docker-registry.roel.dev.eyrabenchmark.net/v2/_catalog
