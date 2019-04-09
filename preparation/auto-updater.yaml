@@ -1,0 +1,66 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: auto-updater
+  namespace: tiller
+  labels:
+    k8s-app: auto-updater
+    version: v1
+spec:
+  template:
+    metadata:
+      labels:
+        k8s-app: auto-updater
+        version: v1
+    spec:
+      containers:
+      - name: auto-updater
+        image: alpine:3.9
+        command: ["/script.sh"]
+        #command: ["cat", "/script.sh"]
+        #command: [ "ls", "-l", "/" ]
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: auto-updater-script
+          mountPath: /script.sh
+          subPath: script.sh
+          readOnly: true
+      terminationGracePeriodSeconds: 10
+      serviceAccountName: tiller
+      volumes:
+      - name: auto-updater-script
+        configMap:
+          name: auto-updater-script-configmap
+          defaultMode: 0777
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auto-updater-script-configmap
+  namespace: tiller
+data:
+  script.sh: |-
+    #!/bin/sh
+    export TILLER_NAMESPACE=tiller
+    apk update
+    apk add git
+    wget https://storage.googleapis.com/kubernetes-helm/helm-v2.12.2-linux-amd64.tar.gz
+    tar zxvf helm-v2.12.2-linux-amd64.tar.gz 
+    git clone https://github.com/EYRA-Benchmark/eyra-k8s.git
+    cd /eyra-k8s/eyra-chart
+    /linux-amd64/helm init
+    /linux-amd64/helm dependency update
+    while true
+    do
+      git fetch
+      HEADHASH=$(git rev-parse HEAD)
+      UPSTREAMHASH=$(git rev-parse master@{upstream})
+      if [ "$HEADHASH" != "$UPSTREAMHASH" ]
+      then
+        git pull
+        /linux-amd64/helm upgrade eyra-staging -f ./values.staging.yaml .
+      else
+        echo "no update necessary"
+      fi
+      sleep 60
+    done
