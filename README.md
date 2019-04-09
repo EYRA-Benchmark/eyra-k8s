@@ -58,7 +58,12 @@ To update the helm configuration in the cluster after changing the helm chart (a
 
     helm upgrade -f ./eyra-chart/values.dev-<your name>.yaml eyra-dev-<your name> ./eyra-chart
     
-OR: Apply the auto-updater script from `kubectl apply -f preparation/auto-updater.yaml`, this polls this github repository for updates and applies them every minute.
+OR: Apply the auto-updater script, this polls this github repository for updates and applies them every minute:
+
+    kubectl -n tiller create secret generic secrets-pass --from-literal=pass='secrets.zip_password'
+    kubectl apply -f preparation/auto-updater.yaml`
+
+
 
 Docker registry listing::
 
