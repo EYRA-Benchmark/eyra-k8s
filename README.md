@@ -64,7 +64,6 @@ OR: Apply the auto-updater script, this polls this github repository for updates
     kubectl apply -f preparation/auto-updater.yaml`
 
 
-
 Docker registry listing::
 
     curl -X GET https://docker-registry.roel.dev.eyrabenchmark.net/v2/_catalog
