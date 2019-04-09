@@ -20,7 +20,7 @@ redis:
 web:
   debug: "True"
   siteID: "2"
-  imageName: "eyra/backend:latest"
+  imageName: "eyra/backend:1"
 #  travisBuildID: 2190-eyra-master
   emailAddres: "eyra.benchmark@gmail.com"
   emailHost: "smtp.gmail.com"
@@ -28,13 +28,13 @@ web:
   emailUseTLS: 'True'
   mainProjectName: 'grand-challenges'
   subdomainIsProjectName: "True"
-  sentryDisable: "True"
+  sentryDisable: "False"
 
 dev:
-  name: tom
-  namespace: dev-tom
+  name: staging
+  namespace: staging
 
-domain: tom.dev.eyrabenchmark.net
+domain: eyra.local
 
 replicaCount: 1
 
@@ -59,13 +59,13 @@ affinity: {}
 eyra-frontend:
   image:
     repository: eyra/frontend
-    tag: latest
+    tag: 418
     pullPolicy: IfNotPresent
 
   nameOverride: ""
   fullnameOverride: ""
 
-  BACKEND_URL: "https://api.tom.dev.eyrabenchmark.net/api/v1/"
+  BACKEND_URL: "https://api.eyra.local/api/v1/"
 
   service:
     type: ClusterIP
@@ -83,16 +83,15 @@ eyra-frontend:
     paths:
     - /
     hosts:
-    - tom.dev.eyrabenchmark.net
-    - www.tom.dev.eyrabenchmark.net
+    - eyra.local
+    - www.eyra.local
     tls:
-    - secretName: tom.dev.eyrabenchmark.net-tls
+    - secretName: eyra.local-tls
       hosts:
-      - tom.dev.eyrabenchmark.net
-    - secretName: www.tom.dev.eyrabenchmark.net-tls
+      - eyra.local
+    - secretName: www.eyra.local-tls
       hosts:
-      - www.tom.dev.eyrabenchmark.net
-
+      - www.eyra.local
 
   nodeSelector: {}
 

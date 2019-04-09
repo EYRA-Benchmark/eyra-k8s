@@ -77,3 +77,31 @@ Push image to Docker registry::
 Update secrets.yaml (use password from LastPass)::
     
     zip -e secrets.zip secrets.yaml
+
+# Running locally
+Install minikube: https://kubernetes.io/docs/setup/minikube/#installation
+
+Start minikube: `minikube start`
+
+Install helm:
+
+    cd preparation
+    export TILLER_NAMESPACE=tiller
+    kubectl create namespace tiller
+    kubectl apply -f rbac-tiller.yaml
+    helm init --service-account tiller --tiller-namespace tiller
+    minikube addons enable ingress
+
+    cd ..
+    helm install ./eyra-chart --name eyra-dev --namespace eyra-dev -f ./eyra-chart/values.dev.yaml
+    # wait till done (might take a while, downloads images, prepares DB etc.
+
+    # get minikube IP:
+    minikube ip
+    # remember IP, e.g. 192.168.99.100
+    # add the following to /etc/hosts:
+    192.168.99.100 eyra.local
+    192.168.99.100 www.eyra.local
+    192.168.99.100 api.eyra.local
+    192.168.99.100 comic.eyra.local
+    192.168.99.100 docker-registry.eyra.local
