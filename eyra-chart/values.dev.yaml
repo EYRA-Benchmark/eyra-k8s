@@ -31,8 +31,8 @@ web:
   sentryDisable: "False"
 
 dev:
-  name: staging
-  namespace: staging
+  name: eyra-dev
+  namespace: eyra-dev
 
 domain: eyra.local
 

@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "{{.Release.Name}}"
+  name: "{{.Release.Name}}-web-migrations"
   labels:
     app.kubernetes.io/managed-by: {{.Release.Service | quote }}
     app.kubernetes.io/instance: {{.Release.Name | quote }}
@@ -13,7 +13,7 @@ metadata:
 spec:
   template:
     metadata:
-      name: "{{.Release.Name}}"
+      name: "{{.Release.Name}}-web-migrations"
       labels:
         app.kubernetes.io/managed-by: {{.Release.Service | quote }}
         app.kubernetes.io/instance: {{.Release.Name | quote }}
@@ -26,7 +26,7 @@ spec:
         args:
         - bash
         - -c
-        - ' python manage.py migrate'
+        - ' python manage.py migrate && python manage.py check_permissions'
         env:
         - name: CELERY_BROKER_URL
           value: redis://{{ .Release.Name }}-redis-master:6379
