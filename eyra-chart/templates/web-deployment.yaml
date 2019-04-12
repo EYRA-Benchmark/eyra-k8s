@@ -79,21 +79,12 @@ spec:
             secretKeyRef:
               name: eyra-postgresql
               key: postgresql-password
-        - name: S3_ENDPOINT_URL
-          valueFrom:
-            secretKeyRef:
-              name: do-spaces
-              key: endpoint
-        - name: S3_ACCESS_KEY_ID
-          valueFrom:
-            secretKeyRef:
-              name: do-spaces
-              key: key
-        - name: S3_SECRET_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: do-spaces
-              key: secret
+        - name: S3_HOST
+          value: {{ .Values.s3.host | quote }}
+        - name: S3_REGION
+          value: {{ .Values.s3.region | quote }}
+        - name: S3_BUCKET
+          value: {{ .Values.s3.bucket | quote }}
         - name: SECRET_KEY
           valueFrom:
             secretKeyRef:

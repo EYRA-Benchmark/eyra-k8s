@@ -20,7 +20,7 @@ redis:
 web:
   debug: "True"
   siteID: "2"
-  imageName: "eyra/backend:2"
+  imageName: "eyra/backend:3"
 #  travisBuildID: 2190-eyra-master
   emailAddres: "eyra.benchmark@gmail.com"
   emailHost: "smtp.gmail.com"
@@ -33,6 +33,11 @@ web:
 dev:
   name: staging
   namespace: staging
+
+s3:
+  region: eu-central-1
+  bucket: eyra01
+  host: s3.eu-central-1.amazonaws.com
 
 domain: staging.eyrabenchmark.net
 
