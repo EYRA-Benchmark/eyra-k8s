@@ -20,7 +20,7 @@ redis:
 web:
   debug: "True"
   siteID: "2"
-  imageName: "eyra/backend:3"
+  imageName: "eyra/backend:4"
 #  travisBuildID: 2190-eyra-master
   emailAddres: "eyra.benchmark@gmail.com"
   emailHost: "smtp.gmail.com"
