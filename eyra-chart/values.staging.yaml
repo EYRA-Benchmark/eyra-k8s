@@ -1,8 +1,8 @@
 # Default values for eyra-chart.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-nameOverride: ""
-fullnameOverride: ""
+nameOverride: ''
+fullnameOverride: ''
 
 postgresql:
   existingSecret: eyra-postgresql
@@ -18,17 +18,17 @@ redis:
     enabled: false
 
 web:
-  debug: "True"
-  siteID: "2"
-  imageName: "eyra/backend:2"
-#  travisBuildID: 2190-eyra-master
-  emailAddres: "eyra.benchmark@gmail.com"
-  emailHost: "smtp.gmail.com"
+  debug: 'True'
+  siteID: '2'
+  imageName: 'eyra/backend:2'
+  #  travisBuildID: 2190-eyra-master
+  emailAddres: 'eyra.benchmark@gmail.com'
+  emailHost: 'smtp.gmail.com'
   emailPort: '587'
   emailUseTLS: 'True'
   mainProjectName: 'grand-challenges'
-  subdomainIsProjectName: "True"
-  sentryDisable: "False"
+  subdomainIsProjectName: 'True'
+  sentryDisable: 'False'
 
 dev:
   name: staging
@@ -38,7 +38,8 @@ domain: staging.eyrabenchmark.net
 
 replicaCount: 1
 
-resources: {}
+resources:
+  {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -59,13 +60,13 @@ affinity: {}
 eyra-frontend:
   image:
     repository: eyra/frontend
-    tag: 418
+    tag: 437
     pullPolicy: IfNotPresent
 
-  nameOverride: ""
-  fullnameOverride: ""
+  nameOverride: ''
+  fullnameOverride: ''
 
-  BACKEND_URL: "https://api.staging.eyrabenchmark.net/api/v1/"
+  BACKEND_URL: 'https://api.staging.eyrabenchmark.net/api/v1/'
 
   service:
     type: ClusterIP
@@ -74,25 +75,24 @@ eyra-frontend:
   ingress:
     enabled: true
     annotations:
-      ingress.kubernetes.io/ssl-redirect: "true"
-      kubernetes.io/tls-acme: "true"
+      ingress.kubernetes.io/ssl-redirect: 'true'
+      kubernetes.io/tls-acme: 'true'
       certmanager.k8s.io/cluster-issuer: letsencrypt
-      kubernetes.io/ingress.class: "nginx"
-#      kubernetes.io/ingress.class: alb
-#      alb.ingress.kubernetes.io/scheme: internet-facing
+      kubernetes.io/ingress.class: 'nginx'
+    #      kubernetes.io/ingress.class: alb
+    #      alb.ingress.kubernetes.io/scheme: internet-facing
     paths:
-    - /
+      - /
     hosts:
-    - staging.eyrabenchmark.net
-    - www.staging.eyrabenchmark.net
-    tls:
-    - secretName: staging.eyrabenchmark.net-tls
-      hosts:
       - staging.eyrabenchmark.net
-    - secretName: www.staging.eyrabenchmark.net-tls
-      hosts:
       - www.staging.eyrabenchmark.net
-
+    tls:
+      - secretName: staging.eyrabenchmark.net-tls
+        hosts:
+          - staging.eyrabenchmark.net
+      - secretName: www.staging.eyrabenchmark.net-tls
+        hosts:
+          - www.staging.eyrabenchmark.net
 
   nodeSelector: {}
 
