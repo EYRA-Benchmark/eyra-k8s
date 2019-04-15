@@ -2,6 +2,27 @@
 
 Kubernetes configuration for EYRA deployment.
 
+# Deploying backend/frontend
+Get the latest master build number from Travis (for frontend https://travis-ci.org/EYRA-Benchmark/eyra-frontend/builds).
+
+Then, for frontend update `tag` line in `eyra-chart/staging.yaml`:
+
+    eyra-frontend:
+      image:
+        repository: eyra/frontend
+        tag: 456 # <- update with the latest Travis build number
+        
+To update the backend:
+
+    web:
+      debug: 'True'
+      siteID: '2'
+      imageName: 'eyra/backend:6' # <- update the number
+      
+After pushing to `master`, it should automatically update after 1 or 2 minutes.
+
+# Setting up a k8s initially
+
 NOTE: The cluster has helm 2.12.0 installed: make sure your helm version matches this!
 
 - Create a Kubernetes cluster
