@@ -115,3 +115,5 @@ docker-registry:
 
   secrets:
     s3:
+      accessKey:
+      secretKey:
