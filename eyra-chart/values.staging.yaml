@@ -20,7 +20,7 @@ redis:
 web:
   debug: 'True'
   siteID: '2'
-  imageName: 'eyra/backend:4'
+  imageName: 'eyra/backend:7'
   #  travisBuildID: 2190-eyra-master
   emailAddres: 'eyra.benchmark@gmail.com'
   emailHost: 'smtp.gmail.com'
@@ -104,3 +104,17 @@ eyra-frontend:
   tolerations: []
 
   affinity: {}
+
+docker-registry:
+  storage: s3
+  s3:
+    region: eu-central-1
+    regionEndpoint: s3.eu-central-1.amazonaws.com
+    bucket: eyra-data01
+    encrypt: false
+    secure: true
+
+  secrets:
+    s3:
+      accessKey:
+      secretKey:
