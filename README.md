@@ -21,7 +21,7 @@ To update the backend:
       
 After pushing to `master`, it should automatically update after 1 or 2 minutes.
 
-# Setting up a k8s initially
+# Setting up k8s initially
 
 NOTE: The cluster has helm 2.12.0 installed: make sure your helm version matches this!
 
