@@ -7,7 +7,7 @@ fullnameOverride: ''
 domain: eyrabenchmark.net
 
 web:
-  debug: 'True'
+  debug: 'False'
   imageName: 'eyra/comic:34'
   emailAddres: 'eyra.benchmark@gmail.com'
   emailHost: 'smtp.gmail.com'
@@ -18,7 +18,7 @@ web:
 eyra-frontend:
   image:
     repository: eyra/frontend
-    tag: 470
+    tag: 471
     pullPolicy: IfNotPresent
 
   nameOverride: ''
