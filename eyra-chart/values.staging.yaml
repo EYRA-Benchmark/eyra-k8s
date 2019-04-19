@@ -4,68 +4,21 @@
 nameOverride: ''
 fullnameOverride: ''
 
-postgresql:
-  existingSecret: eyra-postgresql
-  postgresqlUsername: comic
-  postgresqlDatabase: comic
-  initdbScripts:
-    setup.sql: |
-      ALTER USER comic WITH SUPERUSER;
-
-redis:
-  usePassword: false
-  cluster:
-    enabled: false
+domain: staging.eyrabenchmark.net
 
 web:
   debug: 'True'
-  siteID: '2'
-  imageName: 'eyra/comic:24'
-  #  travisBuildID: 2190-eyra-master
+  imageName: 'eyra/comic:tom1'
   emailAddres: 'eyra.benchmark@gmail.com'
   emailHost: 'smtp.gmail.com'
   emailPort: '587'
   emailUseTLS: 'True'
-  mainProjectName: 'grand-challenges'
-  subdomainIsProjectName: 'True'
-  sentryDisable: 'False'
-
-dev:
-  name: staging
-  namespace: staging
-
-s3:
-  region: eu-central-1
-  bucket: eyra-data01
-  host: s3.eu-central-1.amazonaws.com
-
-domain: staging.eyrabenchmark.net
-
-replicaCount: 1
-
-resources:
-  {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #  cpu: 100m
-  #  memory: 128Mi
-  # requests:
-  #  cpu: 100m
-  #  memory: 128Mi
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
+  sentryDisable: 'True'
 
 eyra-frontend:
   image:
     repository: eyra/frontend
-    tag: 458
+    tag: 469
     pullPolicy: IfNotPresent
 
   nameOverride: ''
@@ -104,6 +57,45 @@ eyra-frontend:
   tolerations: []
 
   affinity: {}
+
+postgresql:
+  existingSecret: eyra-postgresql
+  postgresqlUsername: comic
+  postgresqlDatabase: comic
+  initdbScripts:
+    setup.sql: |
+      ALTER USER comic WITH SUPERUSER;
+
+redis:
+  usePassword: false
+  cluster:
+    enabled: false
+
+s3:
+  region: eu-central-1
+  bucket: eyra-data01
+  host: s3.eu-central-1.amazonaws.com
+
+replicaCount: 1
+
+resources:
+  {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
 
 docker-registry:
   storage: s3

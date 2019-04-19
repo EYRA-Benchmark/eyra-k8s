@@ -18,21 +18,13 @@ redis:
     enabled: false
 
 web:
-  debug: "True"
-  siteID: "2"
-  imageName: "eyra/comic:24"
-#  travisBuildID: 2190-eyra-master
-  emailAddres: "eyra.benchmark@gmail.com"
-  emailHost: "smtp.gmail.com"
+  debug: 'True'
+  imageName: 'eyra/comic:24'
+  emailAddres: 'eyra.benchmark@gmail.com'
+  emailHost: 'smtp.gmail.com'
   emailPort: '587'
   emailUseTLS: 'True'
-  mainProjectName: 'grand-challenges'
-  subdomainIsProjectName: "True"
-  sentryDisable: "False"
-
-dev:
-  name: eyra-dev
-  namespace: eyra-dev
+  sentryDisable: 'True'
 
 domain: eyra.local
 
