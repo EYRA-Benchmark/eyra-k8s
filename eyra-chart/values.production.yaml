@@ -4,7 +4,7 @@
 nameOverride: ''
 fullnameOverride: ''
 
-domain: staging.eyrabenchmark.net
+domain: eyrabenchmark.net
 
 web:
   debug: 'True'
@@ -13,7 +13,7 @@ web:
   emailHost: 'smtp.gmail.com'
   emailPort: '587'
   emailUseTLS: 'True'
-  sentryDisable: 'True'
+  sentryDisable: 'False'
 
 eyra-frontend:
   image:
@@ -24,7 +24,7 @@ eyra-frontend:
   nameOverride: ''
   fullnameOverride: ''
 
-  BACKEND_URL: 'https://api.staging.eyrabenchmark.net/api/v1/'
+  BACKEND_URL: 'https://api.eyrabenchmark.net/api/v1/'
 
   service:
     type: ClusterIP
@@ -42,15 +42,15 @@ eyra-frontend:
     paths:
       - /
     hosts:
-      - staging.eyrabenchmark.net
-      - www.staging.eyrabenchmark.net
+      - eyrabenchmark.net
+      - www.eyrabenchmark.net
     tls:
-      - secretName: staging.eyrabenchmark.net-tls
+      - secretName: eyrabenchmark.net-tls
         hosts:
-          - staging.eyrabenchmark.net
-      - secretName: www.staging.eyrabenchmark.net-tls
+          - eyrabenchmark.net
+      - secretName: www.eyrabenchmark.net-tls
         hosts:
-          - www.staging.eyrabenchmark.net
+          - www.eyrabenchmark.net
 
   nodeSelector: {}
 

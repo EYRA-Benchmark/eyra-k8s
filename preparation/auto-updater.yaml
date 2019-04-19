@@ -64,6 +64,7 @@ data:
         git pull
         (cd templates && unzip -o -P "$SECRETS_PASS" secrets.zip)
         /linux-amd64/helm upgrade eyra-staging -f ./values.staging.yaml .
+        /linux-amd64/helm upgrade eyra-prd -f ./values.production.yaml .
       else
         echo "no update necessary"
       fi
