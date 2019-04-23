@@ -17,7 +17,7 @@ To update the backend:
     web:
       debug: 'True'
       siteID: '2'
-      imageName: 'eyra/backend:6' # <- update the number
+      imageName: 'eyra/comic:6' # <- update the number
       
 After pushing to `master`, it should automatically update after 1 or 2 minutes.
 
