@@ -110,3 +110,6 @@ docker-registry:
     s3:
       accessKey:
       secretKey:
+
+tags:
+  memcached: true
