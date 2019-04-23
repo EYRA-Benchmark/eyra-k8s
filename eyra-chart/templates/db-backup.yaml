@@ -1,0 +1,42 @@
+{{ if .Values.backup }}
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}-web
+    helm.sh/chart: {{ include "eyra.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  name: {{ .Release.Name }}-db-backup
+spec:
+  # minute hour day week month year
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: {{ .Release.Name }}-db-backup
+            image: eyra/backup
+            env:
+            - name: POSTGRES_HOST
+              value: '{{ .Release.Name }}-postgresql'
+            - name: POSTGRES_DB
+              value: {{ .Values.postgresql.postgresqlDatabase | quote }}
+            - name: POSTGRES_USER
+              value: {{ .Values.postgresql.postgresqlUsername | quote }}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: eyra-postgresql
+                  key: postgresql-password
+            - name: S3_HOST
+              value: {{ .Values.s3.host | quote }}
+            - name: S3_REGION
+              value: {{ .Values.s3.region | quote }}
+            - name: S3_BUCKET
+              value: {{ .Values.s3.bucket | quote }}
+            - name: ROOT_FOLDER
+              value: 'db_backup'
+          restartPolicy: OnFailure
+{{ end }}

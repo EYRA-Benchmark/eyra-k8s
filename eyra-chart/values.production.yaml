@@ -63,6 +63,8 @@ eyra-frontend:
 
   affinity: {}
 
+backup: 'true'
+
 postgresql:
   existingSecret: eyra-postgresql
   postgresqlUsername: comic
