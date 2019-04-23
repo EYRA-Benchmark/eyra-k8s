@@ -112,4 +112,4 @@ docker-registry:
       secretKey:
 
 tags:
-  memcached: true
+  memcached: false
