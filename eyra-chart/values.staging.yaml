@@ -65,7 +65,7 @@ affinity: {}
 eyra-frontend:
   image:
     repository: eyra/frontend
-    tag: 458
+    tag: 479
     pullPolicy: IfNotPresent
 
   nameOverride: ''
