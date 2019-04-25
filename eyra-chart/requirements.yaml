@@ -8,6 +8,8 @@ dependencies:
   - name: memcached
     version: 2.5.0
     repository: https://kubernetes-charts.storage.googleapis.com
+    tags:
+    - memcached
   - name: docker-registry
     version: 1.6.3
     repository: https://kubernetes-charts.storage.googleapis.com

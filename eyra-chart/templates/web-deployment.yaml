@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
   name: {{ .Release.Name }}-web
 spec:
-  replicas: 1
+  replicas: {{ .Values.web.replicas | default 1 }}
   strategy:
     type: Recreate
   template:

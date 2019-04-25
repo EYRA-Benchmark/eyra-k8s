@@ -4,27 +4,28 @@
 nameOverride: ''
 fullnameOverride: ''
 
-domain: staging.eyrabenchmark.net
+domain: eyrabenchmark.net
 
 web:
-  debug: 'True'
-  imageName: 'eyra/comic:34'
+  debug: 'False'
+  imageName: 'eyra/comic:35'
   emailAddres: 'eyra.benchmark@gmail.com'
   emailHost: 'smtp.gmail.com'
   emailPort: '587'
   emailUseTLS: 'True'
-  sentryDisable: 'True'
+  sentryDisable: 'False'
+  replicas: 2
 
 eyra-frontend:
   image:
     repository: eyra/frontend
-    tag: 479
+    tag: 474
     pullPolicy: IfNotPresent
 
   nameOverride: ''
   fullnameOverride: ''
 
-  BACKEND_URL: 'https://api.staging.eyrabenchmark.net/api/v1/'
+  BACKEND_URL: 'https://api.eyrabenchmark.net/api/v1/'
 
   service:
     type: ClusterIP
@@ -37,26 +38,33 @@ eyra-frontend:
       kubernetes.io/tls-acme: 'true'
       certmanager.k8s.io/cluster-issuer: letsencrypt
       kubernetes.io/ingress.class: 'nginx'
+      nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+      nginx.ingress.kubernetes.io/configuration-snippet: |
+        if ($host = 'eyrabenchmark.net' ) {
+          rewrite ^ https://www.eyrabenchmark.net$request_uri permanent;
+        }
     #      kubernetes.io/ingress.class: alb
     #      alb.ingress.kubernetes.io/scheme: internet-facing
     paths:
       - /
     hosts:
-      - staging.eyrabenchmark.net
-      - www.staging.eyrabenchmark.net
+      - eyrabenchmark.net
+      - www.eyrabenchmark.net
     tls:
-      - secretName: staging.eyrabenchmark.net-tls
+      - secretName: eyrabenchmark.net-tls
         hosts:
-          - staging.eyrabenchmark.net
-      - secretName: www.staging.eyrabenchmark.net-tls
+          - eyrabenchmark.net
+      - secretName: www.eyrabenchmark.net-tls
         hosts:
-          - www.staging.eyrabenchmark.net
+          - www.eyrabenchmark.net
 
   nodeSelector: {}
 
   tolerations: []
 
   affinity: {}
+
+backup: 'true'
 
 postgresql:
   existingSecret: eyra-postgresql
@@ -76,27 +84,6 @@ s3:
   bucket: eyra-data01
   host: s3.eu-central-1.amazonaws.com
 
-replicaCount: 1
-
-resources:
-  {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #  cpu: 100m
-  #  memory: 128Mi
-  # requests:
-  #  cpu: 100m
-  #  memory: 128Mi
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
-
 docker-registry:
   storage: s3
   s3:
@@ -112,4 +99,4 @@ docker-registry:
       secretKey:
 
 tags:
-  memcached: false
+  memcached: true

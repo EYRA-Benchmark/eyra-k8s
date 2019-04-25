@@ -17,11 +17,11 @@ To update the backend:
     web:
       debug: 'True'
       siteID: '2'
-      imageName: 'eyra/backend:6' # <- update the number
+      imageName: 'eyra/comic:6' # <- update the number
       
 After pushing to `master`, it should automatically update after 1 or 2 minutes.
 
-# Setting up a k8s initially
+# Setting up k8s initially
 
 NOTE: The cluster has helm 2.12.0 installed: make sure your helm version matches this!
 
