@@ -30,14 +30,10 @@ NOTE: The cluster has helm 2.12.0 installed: make sure your helm version matches
 - Add the kubectl config for the cluster to your ~/.kube/config
 - Run preparation/setup.sh
 - helm install --name eyra ./eyra-chart
-- kubectl exec -it web-xxxxxx /bin/bash
-- python manage.py migrate
-- python manage.py check_permissions
-- python manage.py create_demo_benchmark
-
-# Creating a dev namespace
-
-- kubectl create namespace tom-dev
+- ~~kubectl exec -it web-xxxxxx /bin/bash~~
+- ~~python manage.py migrate~~
+- ~~python manage.py check_permissions~~
+- ~~python manage.py create_demo_benchmark~~
 
 # Get a local shell connected to the cluster
 
@@ -58,7 +54,7 @@ eval $OLD_ENV
 - ensure telepresence is installed
 - telepresence --swap-deployment <name of your web deployment> --expose 8000 --run /bin/bash
 - Start PyCharm from the new bash terminal
-- Open the grandchallenge project
+- Open the backend (comic) project
 - Run the dev server in PyCharm (no environment variables set)
 
 ## Telepresence crash
@@ -71,10 +67,6 @@ One thing that can happen is that telepresence crashes (I haven't seen this), or
 When adding charts to requirements.yaml, retrieve the charts by calling::
 
     helm dependency update
-
-To update google social api keys::
-
-    helm upgrade eyra ./eyra-chart -f ./eyra-chart/values.yaml --set "SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=<GOOGLE_API_SECRET>,SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=<GOOGLE_API_CLIENT_ID>"
 
 To update the helm configuration in the cluster after changing the helm chart (assuming you are in the root of this repo)::
 
