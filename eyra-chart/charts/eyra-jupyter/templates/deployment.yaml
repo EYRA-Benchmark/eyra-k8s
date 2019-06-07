@@ -79,7 +79,7 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - mountPath: /home/{{ .Values.JUPYTER_USER }}
+            - mountPath: /notebooks
               name: data
       volumes:
         - name: data
