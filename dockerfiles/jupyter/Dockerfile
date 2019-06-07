@@ -26,6 +26,5 @@ WORKDIR /comic/
 #COPY entrypoint.sh /entrypoint.sh
 #RUN chmod a+x /entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
-
-CMD jupyterhub -f /jupyterhub_config.py
+ENTRYPOINT ["/bin/sh", "-c"]
+CMD ["/entrypoint.sh"]

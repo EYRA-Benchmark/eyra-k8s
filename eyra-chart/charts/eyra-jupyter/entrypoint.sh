@@ -6,4 +6,4 @@ mkdir /home/${JUPYTER_USER}
 chown ${JUPYTER_USER}:${JUPYTER_USER} /home/${JUPYTER_USER}
 chown ${JUPYTER_USER}:${JUPYTER_USER} /notebooks
 
-exec "$@"
+exec jupyterhub -f /jupyterhub_config.py
