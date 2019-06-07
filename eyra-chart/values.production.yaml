@@ -25,7 +25,7 @@ eyra-frontend:
   nameOverride: ''
   fullnameOverride: ''
 
-  BACKEND_URL: 'https://api.eyrabenchmark.net/api/v1/'
+  EYRA_BACKEND_URL: 'https://api.eyrabenchmark.net/api/v1/'
 
   service:
     type: ClusterIP
