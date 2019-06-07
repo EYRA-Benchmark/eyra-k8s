@@ -86,12 +86,12 @@ c.JupyterHub.authenticator_class = 'jupyterhub.auth.PAMAuthenticator'
 #
 #  .. deprecated: 0.9
 #      Use JupyterHub.bind_url
-c.JupyterHub.base_url = '/jupyter'
+# c.JupyterHub.base_url = '/jupyter'
 
 ## The public facing URL of the whole JupyterHub application.
 #
 #  This is the address on which the proxy will bind. Sets protocol, ip, base_url
-c.JupyterHub.bind_url = 'http://:8000'
+c.JupyterHub.bind_url = 'http://0.0.0.0:80'
 
 ## Whether to shutdown the proxy when the Hub shuts down.
 #
