@@ -18,13 +18,13 @@ web:
 eyra-frontend:
   image:
     repository: eyra/frontend
-    tag: 479
+    tag: 525
     pullPolicy: IfNotPresent
 
   nameOverride: ''
   fullnameOverride: ''
 
-  BACKEND_URL: 'https://api.staging.eyrabenchmark.net/api/v1/'
+  EYRA_BACKEND_URL: 'https://api.staging.eyrabenchmark.net/api/v1/'
 
   service:
     type: ClusterIP
