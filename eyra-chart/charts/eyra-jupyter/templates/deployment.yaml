@@ -79,9 +79,20 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - mountPath: /notebooks
-              name: data
+            - name: config-volume
+              mountPath: /
+              subPath: 'jupyterhub_config.py'
+            - name: config-volume
+              mountPath: /
+              subPath: 'entrypoint.py'
+            - name: data
+              mountPath: /notebooks
+
       volumes:
+        - name: config-volume
+          configMap:
+            name: "{{ .Release.Name }}-configmap"
+            defaultMode: 0744
         - name: data
           persistentVolumeClaim:
             claimName: jupyter-pv-claim

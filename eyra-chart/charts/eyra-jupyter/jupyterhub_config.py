@@ -526,7 +526,29 @@ c.Spawner.disable_user_config = True
 #  This whitelist is used to ensure that sensitive information in the JupyterHub
 #  process's environment (such as `CONFIGPROXY_AUTH_TOKEN`) is not passed to the
 #  single-user server's process.
-c.Spawner.env_keep = ['ENVIRONMENT', 'FLASK_SECRET_KEY', 'PATH', 'PYTHONPATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', 'VIRTUAL_ENV', 'LANG', 'LC_ALL']
+c.Spawner.env_keep = [
+    'ENVIRONMENT',
+    'FLASK_SECRET_KEY',
+    'PATH',
+    'PYTHONPATH',
+    'CONDA_ROOT',
+    'CONDA_DEFAULT_ENV',
+    'VIRTUAL_ENV',
+    'LANG',
+    'LC_ALL',
+    'CELERY_BROKER_URL',
+    'MEDIA_ROOT',
+    'POSTGRES_HOST',
+    'POSTGRES_DB',
+    'POSTGRES_PASSWORD',
+    'S3_HOST',
+    'S3_REGION',
+    'S3_BUCKET',
+    'SECRET_KEY',
+    'SENTRY_DISABLE',
+    'K8S_NAMESPACE',
+    'PRIVATE_DOCKER_REGISTRY'
+]
 
 ## Extra environment variables to set for the single-user server's process.
 #
@@ -546,7 +568,7 @@ c.Spawner.env_keep = ['ENVIRONMENT', 'FLASK_SECRET_KEY', 'PATH', 'PYTHONPATH', '
 #  across upgrades, so if you are using the callable take care to verify it
 #  continues to work after upgrades!
 c.Spawner.environment = {
-    'PYTHONPATH': '/newsgac',
+    'PYTHONPATH': '/comic/comic',
 }
 
 ## Timeout (in seconds) before giving up on a spawned HTTP server
