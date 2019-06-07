@@ -1,0 +1,19 @@
+{{- if .Values.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "eyra-jupyter.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "eyra-jupyter.name" . }}
+    helm.sh/chart: {{ include "eyra-jupyter.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.service.port }}
+  selector:
+    app.kubernetes.io/name: {{ include "eyra-jupyter.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
