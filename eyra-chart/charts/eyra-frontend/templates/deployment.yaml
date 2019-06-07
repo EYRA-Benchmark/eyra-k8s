@@ -26,6 +26,8 @@ spec:
           env:
           - name: EYRA_BACKEND_URL
             value: "{{ .Values.EYRA_BACKEND_URL }}"
+          - name: BACKEND_URL
+            value: "{{ .Values.EYRA_BACKEND_URL }}"
           - name: EYRA_FRONTEND_PORT
             value: "80"
           ports:
