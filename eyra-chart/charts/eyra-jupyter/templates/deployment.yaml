@@ -80,11 +80,11 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - name: config-volume
-              mountPath: /
+              mountPath: /jupyterhub_config.py
               subPath: 'jupyterhub_config.py'
             - name: config-volume
-              mountPath: /
-              subPath: 'entrypoint.py'
+              mountPath: /entrypoint.sh
+              subPath: 'entrypoint.sh'
             - name: data
               mountPath: /notebooks
 
