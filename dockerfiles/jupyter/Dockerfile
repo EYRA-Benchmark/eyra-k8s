@@ -28,4 +28,4 @@ WORKDIR /comic/
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-CMD jupyterhub -f /config/jupyterhub_config.py
+CMD jupyterhub -f /jupyterhub_config.py
