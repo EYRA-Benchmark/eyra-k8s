@@ -18,7 +18,7 @@ web:
 eyra-frontend:
   image:
     repository: eyra/frontend
-    tag: 530
+    tag: 531
     pullPolicy: IfNotPresent
 
   nameOverride: ''
