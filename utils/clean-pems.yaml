@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: clean-pems
+spec:
+  containers:
+  - image: debian
+    name: test-container
+    command: ["sh", "-c"]
+    args: ["cd /hostroot/var/lib/kubelet/pki && find . -type f -exec rm {} \\;"]
+    volumeMounts:
+    - mountPath: /hostroot
+      name: host-root
+  volumes:
+  - name: host-root
+    hostPath:
+      # directory location on host
+      path: /
+      # this field is optional
+      type: Directory
+  nodeSelector:
+    kubernetes.io/hostname: ip-10-0-0-182.eu-central-1.compute.internal
+    # kubernetes.io/hostname: ip-10-0-1-126.eu-central-1.compute.internal
+    # kubernetes.io/hostname: ip-10-0-0-110.eu-central-1.compute.internal

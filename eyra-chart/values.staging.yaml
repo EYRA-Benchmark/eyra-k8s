@@ -8,7 +8,7 @@ domain: staging.eyrabenchmark.net
 
 web:
   debug: 'True'
-  imageName: 'eyra/comic:34'
+  imageName: 'eyra/comic:t5'
   emailAddres: 'eyra.benchmark@gmail.com'
   emailHost: 'smtp.gmail.com'
   emailPort: '587'
@@ -24,7 +24,7 @@ eyra-frontend:
   nameOverride: ''
   fullnameOverride: ''
 
-  BACKEND_URL: 'https://api.staging.eyrabenchmark.net/api/v1/'
+  EYRA_BACKEND_URL: 'https://api.staging.eyrabenchmark.net/api/v1/'
 
   service:
     type: ClusterIP
@@ -57,6 +57,7 @@ eyra-frontend:
   tolerations: []
 
   affinity: {}
+
 
 postgresql:
   existingSecret: eyra-postgresql
@@ -113,3 +114,52 @@ docker-registry:
 
 tags:
   memcached: false
+
+eyra-jupyter:
+  enabled: true
+  image:
+    repository: eyra/jupyter
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  nameOverride: ''
+  fullnameOverride: ''
+
+  JUPYTER_USER: 'eyra'
+  JUPYTER_PASSWORD: 'eyra'
+
+  service:
+    type: ClusterIP
+    port: 80
+
+  ingress:
+    enabled: true
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: 'true'
+      kubernetes.io/tls-acme: 'true'
+      certmanager.k8s.io/cluster-issuer: letsencrypt
+      kubernetes.io/ingress.class: 'nginx'
+    paths:
+      - /
+    hosts:
+      - jupyter.staging.eyrabenchmark.net
+    tls:
+      - secretName: jupyter.staging.eyrabenchmark.net-tls
+        hosts:
+          - jupyter.staging.eyrabenchmark.net
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+  postgresql:
+    existingSecret: eyra-postgresql
+    postgresqlUsername: comic
+    postgresqlDatabase: comic
+
+  s3:
+    region: eu-central-1
+    bucket: eyra-data01
+    host: s3.eu-central-1.amazonaws.com
