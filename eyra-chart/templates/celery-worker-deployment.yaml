@@ -22,6 +22,8 @@ spec:
         - -A
         - config
         - worker
+        - -Q
+        - submission,celery
         - -l
         - info
         - -c
