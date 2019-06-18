@@ -44,6 +44,32 @@ metadata:
     #kubernetes.io/ingress.class: alb
     #alb.ingress.kubernetes.io/scheme: internet-facing
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/server-snippet: |
+      location ~* ^/download/(.*) {
+        # Do not allow people to mess with this location directly
+        # Only internal redirects are allowed
+        internal;
+
+        # Location-specific logging
+        #access_log logs/internal_redirect.access.log main;
+        #error_log logs/internal_redirect.error.log warn;
+
+        set $download_url $1;
+
+        # Set download request headers
+        # proxy_set_header Host $download_host;
+        # proxy_set_header Authorization '';
+
+        proxy_hide_header Content-Disposition;
+        add_header Content-Disposition $upstream_http_content_disposition;
+
+        # Do not touch local disks when proxying
+        # content to clients
+        proxy_max_temp_file_size 0;
+
+        # Download the file and send it to client
+        proxy_pass $download_url;
+      }
   name: web-ingress-docker-registry
 spec:
   tls:
