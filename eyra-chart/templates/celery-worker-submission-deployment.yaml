@@ -48,17 +48,17 @@ spec:
           value: {{ .Values.s3.region | quote }}
         - name: S3_BUCKET
           value: {{ .Values.s3.bucket | quote }}
-        - name: AWS_REGION
+        - name: AWS_AUTOSCALING_REGION
           valueFrom:
             secretKeyRef:
               name: aws
               key: region
-        - name: AWS_ACCESS_KEY_ID
+        - name: AWS_AUTOSCALING_ACCESS_KEY_ID
           valueFrom:
             secretKeyRef:
               name: aws
               key: access_key_id
-        - name: AWS_SECRET_ACCESS_KEY
+        - name: AWS_AUTOSCALING_SECRET_ACCESS_KEY
           valueFrom:
             secretKeyRef:
               name: aws
