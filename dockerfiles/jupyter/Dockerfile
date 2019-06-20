@@ -11,7 +11,7 @@ RUN git clone --depth 1 https://github.com/EYRA-Benchmark/comic.git
 RUN pip install jupyter jupyterlab && \
     conda create -n py37 python=3.7 && \
     /opt/conda/envs/py37/bin/pip install jupyter ipykernel setuptools wheel ipywidgets pipenv && \
-    /opt/conda/envs/py37/bin/pip install -r comic/requirements.txt && \
+    /opt/conda/envs/py37/bin/pip install -r comic/requirements.txt --ignore-installed && \
     /opt/conda/envs/py37/bin/python -m ipykernel install --prefix /opt/conda/
 
 RUN jupyter labextension install @jupyterlab/hub-extension && \

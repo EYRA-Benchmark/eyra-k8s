@@ -2,11 +2,11 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/name: {{ .Release.Name }}-celery-worker
+    app.kubernetes.io/name: {{ .Release.Name }}-celery-worker-submission
     helm.sh/chart: {{ include "eyra.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
-  name: {{ .Release.Name }}-celery-worker
+  name: {{ .Release.Name }}-celery-worker-submission
 spec:
   replicas: 1
   strategy:
@@ -14,7 +14,7 @@ spec:
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ .Release.Name }}-celery-worker
+        app.kubernetes.io/name: {{ .Release.Name }}-celery-worker-submission
     spec:
       containers:
       - args:
@@ -23,7 +23,7 @@ spec:
         - config
         - worker
         - -Q
-        - submission,celery
+        - submission
         - -l
         - info
         - -c
@@ -48,6 +48,21 @@ spec:
           value: {{ .Values.s3.region | quote }}
         - name: S3_BUCKET
           value: {{ .Values.s3.bucket | quote }}
+        - name: AWS_REGION
+          valueFrom:
+            secretKeyRef:
+              name: aws
+              key: region
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws
+              key: access_key_id
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws
+              key: secret_access_key
         - name: K8S_NAMESPACE
           value: {{ .Release.Namespace }}
         - name: PRIVATE_DOCKER_REGISTRY
@@ -55,7 +70,7 @@ spec:
         - name: SENTRY_DISABLE
           value: '{{ .Values.web.sentryDisable }}'
         image: {{ .Values.web.imageName }}
-        name: {{ .Release.Name }}-celery-worker
+        name: {{ .Release.Name }}-celery-worker-submission
         resources: {}
       restartPolicy: Always
 status: {}
