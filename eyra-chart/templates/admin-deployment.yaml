@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - args:
-        - true
+        - "true"
         env:
         - name: CELERY_BROKER_URL
           value: redis://{{ .Release.Name }}-redis-master:6379
