@@ -1,0 +1,68 @@
+# this template is used for telepresence - it has a similar environment as web/celery workers
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}-admin
+    helm.sh/chart: {{ include "eyra.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  name: {{ .Release.Name }}-admin
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Release.Name }}-admin
+    spec:
+      containers:
+      - args:
+        - true
+        env:
+        - name: CELERY_BROKER_URL
+          value: redis://{{ .Release.Name }}-redis-master:6379
+        - name: POSTGRES_HOST
+          value: '{{ .Release.Name }}-postgresql'
+        - name: POSTGRES_DB
+          value: {{ .Values.postgresql.postgresqlDatabase }}
+        - name: POSTGRES_USER
+          value: {{ .Values.postgresql.postgresqlUsername }}
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: eyra-postgresql
+              key: postgresql-password
+        - name: S3_HOST
+          value: {{ .Values.s3.host | quote }}
+        - name: S3_REGION
+          value: {{ .Values.s3.region | quote }}
+        - name: S3_BUCKET
+          value: {{ .Values.s3.bucket | quote }}
+        - name: AWS_REGION
+          valueFrom:
+            secretKeyRef:
+              name: aws
+              key: region
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws
+              key: access_key_id
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws
+              key: secret_access_key
+        - name: K8S_NAMESPACE
+          value: {{ .Release.Namespace }}
+        - name: PRIVATE_DOCKER_REGISTRY
+          value: docker-registry.{{ .Values.domain }}
+        - name: SENTRY_DISABLE
+          value: 'True'
+        image: {{ .Values.web.imageName }}
+        name: {{ .Release.Name }}-admin
+        resources: {}
+      restartPolicy: Always
+status: {}
