@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
   name: {{ .Release.Name }}-admin
 spec:
-  replicas: 1
+  replicas: 0
   strategy:
     type: Recreate
   template:
