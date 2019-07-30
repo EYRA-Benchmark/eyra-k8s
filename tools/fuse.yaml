@@ -1,0 +1,22 @@
+# launch, then:
+# mkdir /eyra && apt-get update && apt-get install -y s3fs && s3fs -o iam_role=auto eyra-data01 /eyra
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu
+spec:
+  containers:
+  - image: ubuntu
+    name: ubuntu
+    command: ["sleep"]
+    args: ["1000000000000"]
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - mountPath: /dev/fuse
+      name: devfuse
+  volumes:
+  - name: devfuse
+    hostPath:
+      path: /dev/fuse
+
