@@ -69,6 +69,9 @@ spec:
           value: docker-registry.{{ .Values.domain }}
         - name: ENVIRONMENT
           value: {{ .Values.web.environment }}
+        # todo: remove after prod backend update:
+        - name: SENTRY_DISABLE
+          value: 'False'
         image: {{ .Values.web.imageName }}
         name: {{ .Release.Name }}-celery-worker-general
         resources: {}

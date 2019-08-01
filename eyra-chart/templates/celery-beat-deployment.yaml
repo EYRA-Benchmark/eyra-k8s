@@ -41,8 +41,9 @@ spec:
             secretKeyRef:
               name: eyra-postgresql
               key: postgresql-password
+        # todo: remove after prod backend update:
         - name: SENTRY_DISABLE
-          value: '{{ .Values.web.sentryDisable }}'
+          value: 'False'
         image: {{ .Values.web.imageName }}
         name: celery-beat
         resources: {}

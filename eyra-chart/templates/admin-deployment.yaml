@@ -59,8 +59,9 @@ spec:
           value: {{ .Release.Namespace }}
         - name: PRIVATE_DOCKER_REGISTRY
           value: docker-registry.{{ .Values.domain }}
+        # todo: remove after prod backend update:
         - name: SENTRY_DISABLE
-          value: 'True'
+          value: 'False'
         image: {{ .Values.web.imageName }}
         name: {{ .Release.Name }}-admin
         resources: {}
