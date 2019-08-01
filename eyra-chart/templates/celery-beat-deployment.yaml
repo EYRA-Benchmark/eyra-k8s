@@ -43,7 +43,7 @@ spec:
               key: postgresql-password
         # todo: remove after prod backend update:
         - name: SENTRY_DISABLE
-          value: 'False'
+          value: "False"
         image: {{ .Values.web.imageName }}
         name: celery-beat
         resources: {}

@@ -71,7 +71,7 @@ spec:
           value: {{ .Values.web.environment }}
         # todo: remove after prod backend update:
         - name: SENTRY_DISABLE
-          value: 'False'
+          value: "False"
         image: {{ .Values.web.imageName }}
         name: {{ .Release.Name }}-celery-worker-submission
         resources: {}
