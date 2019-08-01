@@ -62,8 +62,9 @@ data:
       if [ "$HEADHASH" != "$UPSTREAMHASH" ]
       then
         git pull
-        (cd templates && unzip -o -P "$SECRETS_PASS" secrets.zip)
+        (cd templates && unzip -o -P "$SECRETS_PASS" secrets.staging.zip)
         /linux-amd64/helm upgrade eyra-staging -f ./values.staging.yaml .
+        (cd templates && unzip -o -P "$SECRETS_PASS" secrets.production.zip)
         /linux-amd64/helm upgrade eyra-prd -f ./values.production.yaml .
       else
         echo "no update necessary"

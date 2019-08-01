@@ -24,7 +24,6 @@ web:
   emailHost: 'smtp.gmail.com'
   emailPort: '587'
   emailUseTLS: 'True'
-  sentryDisable: 'True'
 
 domain: eyra.local
 

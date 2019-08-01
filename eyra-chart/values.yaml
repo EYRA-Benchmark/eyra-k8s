@@ -28,7 +28,6 @@ web:
   emailUseTLS: 'True'
   mainProjectName: 'grand-challenges'
   subdomainIsProjectName: "True"
-  sentryDisable: "True"
 
 dev:
   # Empty

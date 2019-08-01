@@ -13,7 +13,6 @@ web:
   emailHost: 'smtp.gmail.com'
   emailPort: '587'
   emailUseTLS: 'True'
-  sentryDisable: 'False'
   replicas: 2
 
 eyra-frontend:
