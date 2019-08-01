@@ -8,11 +8,12 @@ domain: staging.eyrabenchmark.net
 
 web:
   debug: 'True'
-  imageName: 'eyra/comic:83'
+  imageName: 'eyra/comic:84'
   emailAddres: 'eyra.benchmark@gmail.com'
   emailHost: 'smtp.gmail.com'
   emailPort: '587'
   emailUseTLS: 'True'
+  environment: 'staging'
 
 eyra-frontend:
   image:

@@ -67,8 +67,8 @@ spec:
           value: {{ .Release.Namespace }}
         - name: PRIVATE_DOCKER_REGISTRY
           value: docker-registry.{{ .Values.domain }}
-        - name: SENTRY_DISABLE
-          value: '{{ .Values.web.sentryDisable }}'
+        - name: ENVIRONMENT
+          value: {{ .Values.web.environment }}
         image: {{ .Values.web.imageName }}
         name: {{ .Release.Name }}-celery-worker-general
         resources: {}
