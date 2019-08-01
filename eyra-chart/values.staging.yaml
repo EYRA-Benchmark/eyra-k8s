@@ -8,7 +8,7 @@ domain: staging.eyrabenchmark.net
 
 web:
   debug: 'True'
-  imageName: 'eyra/comic:91'
+  imageName: 'eyra/comic:92'
   emailAddres: 'eyra.benchmark@gmail.com'
   emailHost: 'smtp.gmail.com'
   emailPort: '587'
