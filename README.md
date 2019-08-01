@@ -3,6 +3,7 @@
 Kubernetes configuration for EYRA deployment.
 
 # Deploying backend/frontend
+
 Get the latest master build number from Travis (for frontend https://travis-ci.org/EYRA-Benchmark/eyra-frontend/builds).
 
 Then, for frontend update `tag` line in `eyra-chart/values.staging.yaml`:
