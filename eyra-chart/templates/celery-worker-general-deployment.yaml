@@ -63,6 +63,21 @@ spec:
             secretKeyRef:
               name: aws
               key: secret_access_key
+        - name: AWS_AUTOSCALING_REGION
+          valueFrom:
+            secretKeyRef:
+              name: aws
+              key: region
+        - name: AWS_AUTOSCALING_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws
+              key: access_key_id
+        - name: AWS_AUTOSCALING_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws
+              key: secret_access_key
         - name: K8S_NAMESPACE
           value: {{ .Release.Namespace }}
         - name: PRIVATE_DOCKER_REGISTRY
