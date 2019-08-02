@@ -8,7 +8,7 @@ domain: eyrabenchmark.net
 
 web:
   debug: 'False'
-  imageName: 'eyra/comic:80'
+  imageName: 'eyra/comic:98'
   emailAddres: 'eyra.benchmark@gmail.com'
   emailHost: 'smtp.gmail.com'
   emailPort: '587'
@@ -19,7 +19,7 @@ web:
 eyra-frontend:
   image:
     repository: eyra/frontend
-    tag: 551
+    tag: 576
     pullPolicy: IfNotPresent
 
   replicaCount: 2
