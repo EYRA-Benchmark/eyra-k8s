@@ -24,6 +24,8 @@ spec:
         - ' gunicorn -w 4 -b 0.0.0.0 config.wsgi --log-level debug'
 #        - ' python manage.py runserver'
         env:
+        - name: ALLOW_ALL_HOSTS
+          value: {{ .Values.web.allowAllHosts | default "False" | quote }}
         - name: CELERY_BROKER_URL
           value: redis://{{ .Release.Name }}-redis-master:6379
         - name: CSRF_COOKIE_SECURE
@@ -32,6 +34,8 @@ spec:
           value: '{{ .Values.web.debug }}'
         - name: DEFAULT_FROM_EMAIL
           value: {{ .Values.web.emailAddress }}
+        - name: CORS_ALLOW_ALL
+          value: {{ .Values.web.CORSAllowAll | default "False" | quote }}
         - name: DJANGO_ADMIN_URL
           value: admin
         - name: DJANGO_SENTRY_DSN

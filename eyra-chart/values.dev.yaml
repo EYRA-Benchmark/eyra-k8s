@@ -19,12 +19,14 @@ redis:
 
 web:
   debug: 'True'
-  imageName: 'eyra/comic:t15'
+  imageName: 'eyra/comic:t30'
   emailAddres: 'eyra.benchmark@gmail.com'
   emailHost: 'smtp.gmail.com'
   emailPort: '587'
   emailUseTLS: 'True'
   environment: 'dev'
+  CORSAllowAll: 'True'
+  allowAllHosts: 'True'
 
 domain: eyra.local
 
