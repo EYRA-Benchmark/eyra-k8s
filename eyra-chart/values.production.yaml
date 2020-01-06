@@ -19,7 +19,7 @@ web:
 eyra-frontend:
   image:
     repository: eyra/frontend
-    tag: 756
+    tag: 819
     pullPolicy: IfNotPresent
 
   replicaCount: 2
@@ -27,7 +27,15 @@ eyra-frontend:
   nameOverride: ''
   fullnameOverride: ''
 
-  EYRA_BACKEND_URL: 'https://api.eyrabenchmark.net/api/v1/'
+  EYRA_BACKEND_URL: '
+  
+  
+  
+  
+  
+  
+  
+  '
 
   service:
     type: ClusterIP
