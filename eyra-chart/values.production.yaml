@@ -19,7 +19,7 @@ web:
 eyra-frontend:
   image:
     repository: eyra/frontend
-    tag: 819
+    tag: 822
     pullPolicy: IfNotPresent
 
   replicaCount: 2
