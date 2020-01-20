@@ -2,3 +2,4 @@
 telepresence.log
 .DS_Store
 kube-prometheus/
+helm

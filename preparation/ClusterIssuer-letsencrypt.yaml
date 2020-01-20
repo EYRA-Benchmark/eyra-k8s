@@ -1,15 +1,35 @@
-apiVersion: certmanager.k8s.io/v1alpha1
+#apiVersion: certmanager.k8s.io/v1alpha1
+#kind: ClusterIssuer
+#metadata:
+#  name: letsencrypt
+#spec:
+#  acme:
+#    # The ACME server URL
+#    server: https://acme-v02.api.letsencrypt.org/directory
+#    # Email address used for ACME registration
+#    email: "eyra.benchmark@gmail.com"
+#    # Name of a secret used to store the ACME account private key
+#    privateKeySecretRef:
+#      name: letsencrypt
+#    # Enable the HTTP-01 challenge provider
+#    http01: {}
+
+apiVersion: cert-manager.io/v1alpha2
 kind: ClusterIssuer
 metadata:
   name: letsencrypt
 spec:
   acme:
-    # The ACME server URL
+    # You must replace this email address with your own.
+    # Let's Encrypt will use this to contact you about expiring
+    # certificates, and issues related to your account.
+    email: info@eyrabenchmark.net
     server: https://acme-v02.api.letsencrypt.org/directory
-    # Email address used for ACME registration
-    email: "eyra.benchmark@gmail.com"
-    # Name of a secret used to store the ACME account private key
     privateKeySecretRef:
-      name: letsencrypt
-    # Enable the HTTP-01 challenge provider
-    http01: {}
+      # Secret resource used to store the account's private key.
+      name: letsencrypt-issuer-account-key
+    # Add a single challenge solver, HTTP01 using nginx
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
