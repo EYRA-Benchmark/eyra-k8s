@@ -83,6 +83,17 @@ spec:
             secretKeyRef:
               name: eyra-postgresql
               key: postgresql-password
+        - name: POSTGRESQL_HOST
+          value: '{{ .Release.Name }}-postgresql'
+        - name: POSTGRESQL_DATABASE
+          value: {{ .Values.postgresql.postgresqlDatabase }}
+        - name: POSTGRESQL_USERNAME
+          value: {{ .Values.postgresql.postgresqlUsername }}
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: eyra-postgresql
+              key: postgresql-password
         - name: S3_HOST
           value: {{ .Values.s3.host | quote }}
         - name: S3_REGION
