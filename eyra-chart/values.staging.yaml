@@ -18,7 +18,7 @@ web:
 eyra-frontend:
   image:
     repository: eyra/frontend
-    tag: 756
+    tag: 872
     pullPolicy: IfNotPresent
 
   nameOverride: ''
@@ -57,7 +57,6 @@ eyra-frontend:
   tolerations: []
 
   affinity: {}
-
 
 postgresql:
   existingSecret: eyra-postgresql
