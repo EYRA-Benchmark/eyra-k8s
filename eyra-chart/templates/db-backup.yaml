@@ -32,6 +32,17 @@ spec:
                 secretKeyRef:
                   name: eyra-postgresql
                   key: postgresql-password
+            - name: POSTGRESQL_PORT
+              value: '5432'
+            - name: POSTGRESQL_DATABASE
+              value: {{ .Values.postgresql.postgresqlDatabase | quote }}
+            - name: POSTGRESQL_USERNAME
+              value: {{ .Values.postgresql.postgresqlUsername | quote }}
+            - name: POSTGRESQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: eyra-postgresql
+                  key: postgresql-password
             - name: S3_HOST
               value: {{ .Values.s3.host | quote }}
             - name: S3_REGION
