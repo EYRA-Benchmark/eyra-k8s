@@ -44,7 +44,7 @@ spec:
               key: postgresql-password
         - name: POSTGRESQL_HOST
           value: '{{ .Release.Name }}-postgresql'
-        - name: POSTGRESQL_DATABAES
+        - name: POSTGRESQL_DATABASE
           value: {{ .Values.postgresql.postgresqlDatabase }}
         - name: POSTGRESQL_USERNAME
           value: {{ .Values.postgresql.postgresqlUsername }}
