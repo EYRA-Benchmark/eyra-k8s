@@ -8,7 +8,7 @@ domain: eyrabenchmark.net
 
 web:
   debug: "False"
-  imageName: "eyra/comic:274"
+  imageName: "eyra/comic:283"
   emailAddres: "eyra.benchmark@gmail.com"
   emailHost: "smtp.gmail.com"
   emailPort: "587"
